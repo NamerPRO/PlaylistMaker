@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/settings_back"
+            android:src="@drawable/ic_settings_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_settings_menu_name"
+            android:textSize="@dimen/medium_text_size"
+            android:layout_gravity="start"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="14dp"
+            android:textColor="@color/app_black"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_settings_dark_theme"
+            android:textColor="@color/black"
+            android:textSize="@dimen/app_settings_menu_text_size"
+            android:paddingVertical="@dimen/app_settings_standard_padding"
+            android:layout_marginEnd="@dimen/app_settings_standard_margin_left"
+            app:drawableEndCompat="@drawable/ic_settings_toggle" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_settings_share_app"
+            android:textColor="@color/black"
+            android:textSize="@dimen/app_settings_menu_text_size"
+            android:paddingVertical="@dimen/app_settings_standard_padding"
+            android:layout_marginEnd="@dimen/app_settings_standard_margin_left"
+            app:drawableEndCompat="@drawable/ic_settings_share"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_settings_contact_support"
+            android:textColor="@color/black"
+            android:textSize="@dimen/app_settings_menu_text_size"
+            android:paddingVertical="@dimen/app_settings_standard_padding"
+            android:layout_marginEnd="@dimen/app_settings_standard_margin_left"
+            app:drawableEndCompat="@drawable/ic_settings_support"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_settings_licence_agreement"
+            android:textColor="@color/black"
+            android:textSize="@dimen/app_settings_menu_text_size"
+            android:paddingVertical="@dimen/app_settings_standard_padding"
+            android:layout_marginEnd="@dimen/app_settings_standard_margin_left"
+            app:drawableEndCompat="@drawable/ic_settings_licence_argeement"/>
+
+    </LinearLayout>
+
+</LinearLayout>
