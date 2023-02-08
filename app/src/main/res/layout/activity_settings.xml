@@ -37,15 +37,15 @@
         android:layout_marginTop="40dp"
         android:orientation="vertical">
 
-        <TextView
+        <androidx.appcompat.widget.SwitchCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_settings_dark_theme"
             android:textColor="@color/black"
             android:textSize="@dimen/app_settings_menu_text_size"
             android:paddingVertical="@dimen/app_settings_standard_padding"
-            android:layout_marginEnd="@dimen/app_settings_standard_margin_left"
-            app:drawableEndCompat="@drawable/ic_settings_toggle" />
+            android:layout_marginEnd="@dimen/app_settings_standard_margin_left"/>
+
 
         <TextView
             android:layout_width="match_parent"
