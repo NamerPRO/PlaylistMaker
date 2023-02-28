@@ -11,20 +11,21 @@ import android.widget.ImageView
 
 class SearchActivity : AppCompatActivity() {
 
+    var searchDataValue = ""
+
     companion object {
         const val SEARCH_DATA = "SEARCH_DATA"
-        var SEARCH_DATA_VALUE = ""
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(SEARCH_DATA, SEARCH_DATA_VALUE)
+        outState.putString(SEARCH_DATA, searchDataValue)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        SEARCH_DATA_VALUE = savedInstanceState.getString(SEARCH_DATA,"")
-        findViewById<EditText>(R.id.search_area).setText(SEARCH_DATA_VALUE)
+        searchDataValue = savedInstanceState.getString(SEARCH_DATA,"")
+        findViewById<EditText>(R.id.search_area).setText(searchDataValue)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +50,7 @@ class SearchActivity : AppCompatActivity() {
             override fun afterTextChanged(str: Editable?) {}
 
             override fun onTextChanged(str: CharSequence?, start: Int, before: Int, count: Int) {
-                SEARCH_DATA_VALUE = if (str.isNullOrEmpty()) "" else str.toString()
+                searchDataValue = if (str.isNullOrEmpty()) "" else str.toString()
                 clearTextButton.visibility = if (str.isNullOrEmpty()) View.GONE else View.VISIBLE
             }
         })

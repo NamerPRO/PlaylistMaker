@@ -21,13 +21,13 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         val settingsDayNightToggle = findViewById<SwitchCompat>(R.id.toggle_day_night_mode)
-        settingsDayNightToggle.setOnCheckedChangeListener { _, isEnabled ->
+//        settingsDayNightToggle.setOnCheckedChangeListener { _, isEnabled ->
 //            if (isEnabled) {
 //                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 //            } else {
 //                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 //            }
-        }
+//        }
 
         val shareAppButton = findViewById<TextView>(R.id.settings_share_app_button)
         shareAppButton.setOnClickListener {
@@ -43,7 +43,7 @@ class SettingsActivity : AppCompatActivity() {
         contactSupportButton.setOnClickListener {
             val contactIntent = Intent().apply {
                 data = Uri.parse("mailto:")
-                putExtra(Intent.EXTRA_EMAIL, arrayOf("mail@namerpro.me"))
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.settings_contact_email)))
                 putExtra(Intent.EXTRA_SUBJECT, getString(R.string.settings_extra_subject))
                 putExtra(Intent.EXTRA_TEXT, getString(R.string.settings_extra_text))
             }
