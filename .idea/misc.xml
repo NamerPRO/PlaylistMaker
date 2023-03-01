@@ -11,8 +11,11 @@
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/round_shape_borders_gray.xml" value="0.3345" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_main.xml" value="0.2874617737003058" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_media.xml" value="0.30277777777777776" />
-        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_search.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_search.xml" value="0.33" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_settings.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/test.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/track_item.xml" value="0.67" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/track_view.xml" value="0.22777777777777777" />
       </map>
     </option>
   </component>
