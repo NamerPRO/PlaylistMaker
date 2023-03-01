@@ -3,8 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <FrameLayout android:layout_width="match_parent"
@@ -12,21 +11,18 @@
 
         <ImageView
             android:id="@+id/settings_back"
-            android:src="@drawable/ic_settings_back"
+            android:src="@drawable/ic_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            style="@style/activity_back_button"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_settings_menu_name"
-            android:textSize="@dimen/medium_text_size"
-            android:layout_gravity="start"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="14dp"
-            android:textColor="@color/app_black"/>
+            style="@style/activity_top_text"/>
 
     </FrameLayout>
 
@@ -38,44 +34,27 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.SwitchCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/toggle_day_night_mode"
             android:text="@string/app_settings_dark_theme"
-            android:textColor="@color/black"
-            android:textSize="@dimen/app_settings_menu_text_size"
-            android:paddingVertical="@dimen/app_settings_standard_padding"
-            android:layout_marginEnd="@dimen/app_settings_standard_margin_left"/>
-
+            style="@style/switch_appearence"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/settings_share_app_button"
             android:text="@string/app_settings_share_app"
-            android:textColor="@color/black"
-            android:textSize="@dimen/app_settings_menu_text_size"
-            android:paddingVertical="@dimen/app_settings_standard_padding"
-            android:layout_marginEnd="@dimen/app_settings_standard_margin_left"
-            app:drawableEndCompat="@drawable/ic_settings_share"/>
+            app:drawableEndCompat="@drawable/ic_settings_share"
+            style="@style/settings_buttons_style"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/settings_contact_support_button"
             android:text="@string/app_settings_contact_support"
-            android:textColor="@color/black"
-            android:textSize="@dimen/app_settings_menu_text_size"
-            android:paddingVertical="@dimen/app_settings_standard_padding"
-            android:layout_marginEnd="@dimen/app_settings_standard_margin_left"
-            app:drawableEndCompat="@drawable/ic_settings_support"/>
+            app:drawableEndCompat="@drawable/ic_settings_support"
+            style="@style/settings_buttons_style"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/settings_license_agreement"
             android:text="@string/app_settings_licence_agreement"
-            android:textColor="@color/black"
-            android:textSize="@dimen/app_settings_menu_text_size"
-            android:paddingVertical="@dimen/app_settings_standard_padding"
-            android:layout_marginEnd="@dimen/app_settings_standard_margin_left"
-            app:drawableEndCompat="@drawable/ic_settings_licence_argeement"/>
+            app:drawableEndCompat="@drawable/ic_settings_licence_argeement"
+            style="@style/settings_buttons_style"/>
 
     </LinearLayout>
 

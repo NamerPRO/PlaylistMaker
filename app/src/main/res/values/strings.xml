@@ -8,4 +8,11 @@
     <string name="app_settings_share_app">Поделиться приложением</string>
     <string name="app_settings_contact_support">Написать в поддержку</string>
     <string name="app_settings_licence_agreement">Пользовательское соглашение</string>
+    <string name="app_search_menu_name">Поиск</string>
+    <string name="app_search_hint">Поиск</string>
+    <string name="settings_extra_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="settings_extra_text">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="share_course_link">https://practicum.yandex.ru/profile/android-developer/</string>
+    <string name="license_agreement">https://yandex.ru/legal/practicum_offer/</string>
+    <string name="settings_contact_email">mail@namerpro.me</string>
 </resources>

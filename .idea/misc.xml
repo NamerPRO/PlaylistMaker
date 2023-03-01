@@ -5,11 +5,14 @@
       <map>
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_launcher_background.xml" value="0.126" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_media.xml" value="0.126" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_search.xml" value="0.1" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_settings_toggle.xml" value="0.1" />
-        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_main.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/round_shape_borders.xml" value="0.1225" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/round_shape_borders_gray.xml" value="0.3345" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_main.xml" value="0.2874617737003058" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_media.xml" value="0.30277777777777776" />
-        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_search.xml" value="0.30277777777777776" />
-        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_settings.xml" value="0.33" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_search.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_settings.xml" value="0.1" />
       </map>
     </option>
   </component>
