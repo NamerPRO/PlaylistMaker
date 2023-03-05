@@ -54,4 +54,17 @@
     <style name="clear_button">
         <item name="android:src">@drawable/ic_search_clear_input_light</item>
     </style>
+
+    <style name="track_name">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="track_sub_information">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/yp_gray</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:maxLines">1</item>
+    </style>
 </resources>
