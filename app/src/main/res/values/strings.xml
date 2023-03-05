@@ -15,4 +15,7 @@
     <string name="share_course_link">https://practicum.yandex.ru/profile/android-developer/</string>
     <string name="license_agreement">https://yandex.ru/legal/practicum_offer/</string>
     <string name="settings_contact_email">mail@namerpro.me</string>
+    <string name="search_nothing_found">Ничего не нашлось</string>
+    <string name="search_nointernet">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="search_update">Обновить</string>
 </resources>
