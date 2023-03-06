@@ -24,6 +24,12 @@ class SearchActivity : AppCompatActivity() {
         .build()
 
     private lateinit var savedRequest: String
+    private lateinit var noInternet: LinearLayout
+    private lateinit var nothingFound: FrameLayout
+    private lateinit var trackView: RecyclerView
+
+    private val trackList = mutableListOf<Track>()
+    private val trackAdapter = TrackAdapter(trackList)
     private val itunesService = retrofit.create(ItunesServiceApi::class.java)
 
     var searchDataValue = ""
@@ -55,12 +61,9 @@ class SearchActivity : AppCompatActivity() {
 
         val searchArea = findViewById<EditText>(R.id.search_area)
 
-        val trackView = findViewById<RecyclerView>(R.id.track_view)
+        trackView = findViewById(R.id.track_view)
         trackView.layoutManager = LinearLayoutManager(this)
 
-        val trackList = mutableListOf<Track>()
-
-        val trackAdapter = TrackAdapter(trackList)
         trackView.adapter = trackAdapter
 
         val clearTextButton = findViewById<ImageView>(R.id.search_clear_text)
@@ -82,8 +85,8 @@ class SearchActivity : AppCompatActivity() {
             }
         })
 
-        val nothingFound = findViewById<FrameLayout>(R.id.nothing_found)
-        val noInternet = findViewById<LinearLayout>(R.id.nointernet)
+        nothingFound = findViewById(R.id.nothing_found)
+        noInternet = findViewById(R.id.nointernet)
 
         val itunesCallback = object : Callback<TrackResponse> {
 
@@ -91,29 +94,23 @@ class SearchActivity : AppCompatActivity() {
                 call: Call<TrackResponse>,
                 response: Response<TrackResponse>
             ) {
+                trackList.clear()
                 if (response.code() == 200) {
-                    noInternet.visibility = View.GONE
-                    nothingFound.visibility = View.GONE
-                    trackView.visibility = View.GONE
-                    trackList.clear()
                     if (response.body()?.results?.isNotEmpty() == true) {
                         trackList.addAll(response.body()?.results!!)
-                        trackView.visibility = View.VISIBLE
-                        trackAdapter.notifyDataSetChanged()
+                        showContentOrPlaceholder(ContentType.SUCCESS)
                     }
                     if (trackList.isEmpty()) {
-                        nothingFound.visibility = View.VISIBLE
+                        showContentOrPlaceholder(ContentType.NOTHING_FOUND)
                     }
                 } else {
-//                                Toast.makeText(applicationContext, "Failed to download content :(", Toast.LENGTH_LONG).show()
-                    noInternet.visibility = View.VISIBLE
+                    showContentOrPlaceholder(ContentType.NO_INTERNET)
                 }
             }
 
             override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                trackView.visibility = View.GONE
-                nothingFound.visibility = View.GONE
-                noInternet.visibility = View.VISIBLE
+                trackList.clear()
+                showContentOrPlaceholder(ContentType.NO_INTERNET)
             }
 
         }
@@ -134,5 +131,24 @@ class SearchActivity : AppCompatActivity() {
             false
         }
 
+    }
+
+    enum class ContentType {
+        NO_INTERNET,
+        NOTHING_FOUND,
+        SUCCESS
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun showContentOrPlaceholder(type: ContentType) {
+        noInternet.visibility = View.GONE
+        nothingFound.visibility = View.GONE
+        trackView.visibility = View.GONE
+        when (type) {
+            ContentType.NO_INTERNET -> noInternet.visibility = View.VISIBLE
+            ContentType.NOTHING_FOUND -> nothingFound.visibility = View.VISIBLE
+            ContentType.SUCCESS -> trackView.visibility = View.VISIBLE
+        }
+        trackAdapter.notifyDataSetChanged()
     }
 }

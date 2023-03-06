@@ -79,7 +79,7 @@
         <item name="android:drawablePadding">16sp</item>
     </style>
 
-    <style name="search_reconnect_button_style">
+    <style name="search_reconnect_button_style" parent="@style/Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:backgroundTint">@color/yp_black</item>
         <item name="android:textColor">@color/yp_white</item>
     </style>
