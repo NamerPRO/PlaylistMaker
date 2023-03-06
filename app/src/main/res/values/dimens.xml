@@ -4,4 +4,5 @@
     <dimen name="app_settings_menu_text_size">16sp</dimen>
     <dimen name="app_settings_standard_padding">21dp</dimen>
     <dimen name="app_settings_standard_margin_left">12dp</dimen>
+    <dimen name="app_settings_exceptions_margin">110sp</dimen>
 </resources>
