@@ -33,8 +33,10 @@
         android:layout_marginTop="40dp"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toggle_day_night_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/app_settings_dark_theme"
             style="@style/switch_appearence"/>
 

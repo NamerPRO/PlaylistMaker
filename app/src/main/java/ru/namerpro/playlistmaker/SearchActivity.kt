@@ -1,13 +1,15 @@
 package ru.namerpro.playlistmaker
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -15,6 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 class SearchActivity : AppCompatActivity() {
 
@@ -31,6 +34,10 @@ class SearchActivity : AppCompatActivity() {
     private val trackList = mutableListOf<Track>()
     private val trackAdapter = TrackAdapter(trackList)
     private val itunesService = retrofit.create(ItunesServiceApi::class.java)
+
+    private val historyAdapter = TrackAdapter(SearchHistory.trackHistory)
+    private lateinit var historyView: RecyclerView
+    private lateinit var historyManager: SearchHistory
 
     var searchDataValue = ""
 
@@ -66,6 +73,32 @@ class SearchActivity : AppCompatActivity() {
 
         trackView.adapter = trackAdapter
 
+        historyView = findViewById(R.id.track_history)
+        historyView.layoutManager = LinearLayoutManager(this)
+        historyView.adapter = historyAdapter
+
+        val historyPrefs = getSharedPreferences(TRACK_HISTORY_PREFERENCES, MODE_PRIVATE)
+        historyManager = SearchHistory(historyPrefs)
+        historyAdapter.notifyDataSetChanged()
+
+        trackAdapter.itemClickListener = { _, track ->
+            historyManager.addTrack(track)
+            historyAdapter.notifyDataSetChanged()
+        }
+
+        val searchHistoryElements = findViewById<ConstraintLayout>(R.id.search_history)
+        searchArea.setOnFocusChangeListener { _, hasFocus ->
+            hideAllPlaceholders()
+            searchHistoryElements.visibility = if (hasFocus && searchArea.text.isNullOrEmpty() && !historyManager.isHistoryEmpty()) View.VISIBLE else View.GONE
+        } //hideAllPlaceholders()
+
+        val clearTrackHistory = findViewById<Button>(R.id.clear_track_history)
+        clearTrackHistory.setOnClickListener {
+            historyManager.clearHistory()
+            historyAdapter.notifyDataSetChanged()
+            searchHistoryElements.visibility = View.GONE
+        }
+
         val clearTextButton = findViewById<ImageView>(R.id.search_clear_text)
         clearTextButton.setOnClickListener {
             searchArea.setText("")
@@ -73,6 +106,7 @@ class SearchActivity : AppCompatActivity() {
             trackList.clear()
             trackAdapter.notifyDataSetChanged()
             trackView.visibility = View.GONE
+            searchArea.clearFocus()
         }
 
         searchArea.addTextChangedListener(object : TextWatcher {
@@ -82,6 +116,8 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(str: CharSequence?, start: Int, before: Int, count: Int) {
                 searchDataValue = if (str.isNullOrEmpty()) "" else str.toString()
                 clearTextButton.visibility = if (str.isNullOrEmpty()) View.GONE else View.VISIBLE
+                hideAllPlaceholders()
+                searchHistoryElements.visibility = if (searchArea.hasFocus() && str.isNullOrEmpty() && !historyManager.isHistoryEmpty()) View.VISIBLE else View.GONE
             }
         })
 
@@ -121,7 +157,9 @@ class SearchActivity : AppCompatActivity() {
         }
 
         searchArea.setOnEditorActionListener { _, actionId, _ ->
+            searchHistoryElements.visibility = View.GONE
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                searchArea.clearFocus()
                 if (searchArea.text.isNotEmpty()) {
                     savedRequest = searchArea.text.toString()
                     itunesService.search(searchArea.text.toString()).enqueue(itunesCallback)
@@ -133,6 +171,11 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
+    override fun onStop() {
+        super.onStop()
+        historyManager.saveTracks()
+    }
+
     enum class ContentType {
         NO_INTERNET,
         NOTHING_FOUND,
@@ -141,14 +184,18 @@ class SearchActivity : AppCompatActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showContentOrPlaceholder(type: ContentType) {
-        noInternet.visibility = View.GONE
-        nothingFound.visibility = View.GONE
-        trackView.visibility = View.GONE
+        hideAllPlaceholders()
         when (type) {
             ContentType.NO_INTERNET -> noInternet.visibility = View.VISIBLE
             ContentType.NOTHING_FOUND -> nothingFound.visibility = View.VISIBLE
             ContentType.SUCCESS -> trackView.visibility = View.VISIBLE
         }
         trackAdapter.notifyDataSetChanged()
+    }
+
+    private fun hideAllPlaceholders() {
+        noInternet.visibility = View.GONE
+        nothingFound.visibility = View.GONE
+        trackView.visibility = View.GONE
     }
 }

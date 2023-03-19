@@ -21,13 +21,15 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         val settingsDayNightToggle = findViewById<SwitchCompat>(R.id.toggle_day_night_mode)
-//        settingsDayNightToggle.setOnCheckedChangeListener { _, isEnabled ->
+        settingsDayNightToggle.setOnCheckedChangeListener { _, checked ->
+            (applicationContext as App).switchTheme(checked)
 //            if (isEnabled) {
 //                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 //            } else {
 //                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 //            }
-//        }
+        }
+        settingsDayNightToggle.isChecked = (applicationContext as App).darkTheme
 
         val shareAppButton = findViewById<TextView>(R.id.settings_share_app_button)
         shareAppButton.setOnClickListener {
@@ -60,16 +62,24 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        val settingsDayNightToggle = findViewById<SwitchCompat>(R.id.toggle_day_night_mode)
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> {
-                settingsDayNightToggle.isChecked = true
-            }
-            Configuration.UI_MODE_NIGHT_NO -> {
-                settingsDayNightToggle.isChecked = false
-            }
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        val sharedPrefs = getSharedPreferences(SETTINGS_THEME_PREFERENCES, MODE_PRIVATE)
+        sharedPrefs.edit()
+            .putBoolean(SWITCH_THEME_KEY, (applicationContext as App)
+            .darkTheme).apply()
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        val settingsDayNightToggle = findViewById<SwitchCompat>(R.id.toggle_day_night_mode)
+//        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+//            Configuration.UI_MODE_NIGHT_YES -> {
+//                settingsDayNightToggle.isChecked = true
+//            }
+//            Configuration.UI_MODE_NIGHT_NO -> {
+//                settingsDayNightToggle.isChecked = false
+//            }
+//        }
+//    }
 }
