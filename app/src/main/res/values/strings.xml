@@ -20,4 +20,11 @@
     <string name="search_update">Обновить</string>
     <string name="clear_search_history">Очистить историю</string>
     <string name="search_history_title">Вы искали</string>
+    <string name="audio_album_string">Альбом</string>
+    <string name="audio_duration_string">Длительность</string>
+    <string name="audio_year_string">Год</string>
+    <string name="audio_genre_string">Жанр</string>
+    <string name="audio_country_string">Страна</string>
+    <string name="audio_add_to_favourites">Добавить в избранное</string>
+    <string name="audio_add_to_playlist">Добавить в плейлист</string>
 </resources>

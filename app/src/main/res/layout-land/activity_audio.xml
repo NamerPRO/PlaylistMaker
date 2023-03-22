@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="24dp"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="24dp"/>
+
+        <ImageView
+            android:id="@+id/audio_back_button"
+            app:layout_constraintLeft_toRightOf="@id/audio_data_left_guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/ic_back"/>
+
+        <ImageView
+            android:id="@+id/audio_track_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/Album"
+            android:layout_marginTop="46dp"
+            app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+            app:layout_constraintTop_toBottomOf="@id/audio_back_button"
+            app:layout_constraintRight_toRightOf="@id/right_guideline"/>
+
+        <TextView
+            android:id="@+id/audio_track_name"
+
+            app:layout_constraintTop_toBottomOf="@id/audio_track_image"
+            app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+            app:layout_constraintRight_toLeftOf="@id/right_guideline"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginTop="24dp"
+
+            android:fontFamily="@font/ys_display_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Yesterday (Remastered 2009)"
+            android:textSize="22sp"
+            android:textColor="@color/yp_black"/>
+
+        <TextView
+            android:id="@+id/audio_track_author"
+
+            app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+            app:layout_constraintRight_toLeftOf="@id/right_guideline"
+            app:layout_constraintTop_toBottomOf="@id/audio_track_name"
+            app:layout_constraintWidth="true"
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginTop="12dp"
+
+            android:fontFamily="@font/ys_display_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="The Beatles"
+            android:textSize="14sp"
+            android:textColor="@color/yp_black"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/audio_add_button"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:fabCustomSize="52dp"
+            app:elevation="0dp"
+            android:alpha="0.25"
+            android:src="@drawable/ic_audio_add_button"
+            app:tint="@color/yp_white"
+            app:backgroundTint="@color/yp_black"
+            tools:layout_editor_absoluteX="45dp"
+            tools:layout_editor_absoluteY="16dp"
+
+            app:layout_constraintTop_toBottomOf="@id/audio_track_author"
+            app:layout_constraintLeft_toRightOf="@id/left_guideline"
+            android:layout_marginTop="54dp"
+            android:layout_marginLeft="24dp"/>
+
+        <ImageView
+            android:id="@+id/audio_play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="38dp"
+            app:backgroundTint="@color/transparent"
+            app:elevation="0dp"
+
+            android:src="@drawable/ic_audio_play_button"
+
+            app:layout_constraintLeft_toRightOf="@id/audio_add_button"
+            app:layout_constraintRight_toLeftOf="@id/audio_favourite_button"
+            app:layout_constraintTop_toBottomOf="@id/audio_track_author"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/audio_favourite_button"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:fabCustomSize="52dp"
+            app:elevation="0dp"
+            android:alpha="0.25"
+            android:src="@drawable/ic_audio_favourite_button"
+            app:tint="@color/yp_white"
+            app:backgroundTint="@color/yp_black"
+            tools:layout_editor_absoluteX="45dp"
+            tools:layout_editor_absoluteY="16dp"
+
+            app:layout_constraintTop_toBottomOf="@id/audio_track_author"
+            app:layout_constraintRight_toRightOf="@id/right_guideline"
+            android:layout_marginTop="54dp"
+            android:layout_marginRight="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            tools:text="0:30"
+
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/audio_play_button"
+            app:layout_constraintLeft_toRightOf="@id/left_guideline"
+            app:layout_constraintRight_toLeftOf="@id/right_guideline"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/audio_data_left_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_begin="16dp"
+            android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/audio_data_right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_end="16dp"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:id="@+id/audio_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yp_gray"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="13sp"
+            android:text="Длительность"
+
+
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+
+            app:layout_constraintTop_toBottomOf="@id/audio_add_button"
+            app:layout_constraintLeft_toRightOf="@id/audio_data_left_guideline"
+            app:layout_constraintRight_toLeftOf="@id/audio_duration_data"
+            android:layout_marginTop="84dp"/>
+
+        <TextView
+            android:id="@+id/audio_duration_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yp_black"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="13sp"
+            tools:text="5:25"
+
+            app:layout_constraintTop_toBottomOf="@id/audio_add_button"
+            app:layout_constraintLeft_toRightOf="@id/audio_duration"
+            app:layout_constraintRight_toLeftOf="@id/audio_data_right_guideline"
+
+            android:layout_marginTop="84dp"/>
+
+        <TextView
+            android:id="@+id/audio_album"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yp_gray"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="13sp"
+
+            android:text="Альбом"
+
+
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+
+            android:layout_marginTop="17dp"
+            app:layout_constraintTop_toBottomOf="@id/audio_duration"
+            app:layout_constraintLeft_toRightOf="@id/audio_data_left_guideline"
+            app:layout_constraintRight_toLeftOf="@id/audio_album_data"
+            />
+
+        <TextView
+            android:id="@+id/audio_album_data"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yp_black"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="13sp"
+
+            tools:text="Yesterday (Remastered 2009)"
+
+            android:layout_marginTop="17dp"
+            app:layout_constraintTop_toBottomOf="@id/audio_duration"
+            app:layout_constraintLeft_toRightOf="@id/audio_album"
+            app:layout_constraintRight_toLeftOf="@id/audio_data_right_guideline"/>
+
+        <TextView
+            android:id="@+id/audio_year"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yp_gray"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="13sp"
+
+            android:text="Год"
+
+
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+
+            android:layout_marginTop="17dp"
+            app:layout_constraintTop_toBottomOf="@id/audio_album"
+            app:layout_constraintLeft_toRightOf="@id/audio_data_left_guideline"
+            app:layout_constraintRight_toLeftOf="@id/audio_year_data"
+            />
+
+        <TextView
+            android:id="@+id/audio_year_data"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yp_black"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="13sp"
+
+            tools:text="1965"
+
+            android:layout_marginTop="17dp"
+            app:layout_constraintTop_toBottomOf="@id/audio_album"
+            app:layout_constraintLeft_toRightOf="@id/audio_year"
+            app:layout_constraintRight_toLeftOf="@id/audio_data_right_guideline"/>
+
+        <TextView
+            android:id="@+id/audio_genre"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yp_gray"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="13sp"
+
+            android:text="Жанр"
+
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+
+            android:layout_marginTop="17dp"
+            app:layout_constraintTop_toBottomOf="@id/audio_year"
+            app:layout_constraintLeft_toRightOf="@id/audio_data_left_guideline"
+            app:layout_constraintRight_toLeftOf="@id/audio_genre_data"
+            />
+
+        <TextView
+            android:id="@+id/audio_genre_data"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yp_black"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="13sp"
+
+            tools:text="Rock"
+
+            android:layout_marginTop="17dp"
+            app:layout_constraintTop_toBottomOf="@id/audio_year"
+            app:layout_constraintLeft_toRightOf="@id/audio_genre"
+            app:layout_constraintRight_toLeftOf="@id/audio_data_right_guideline"/>
+
+        <TextView
+            android:id="@+id/audio_country"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yp_gray"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="13sp"
+
+            android:text="Страна"
+
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+
+            android:layout_marginTop="17dp"
+            app:layout_constraintTop_toBottomOf="@id/audio_genre"
+            app:layout_constraintLeft_toRightOf="@id/audio_data_left_guideline"
+            app:layout_constraintRight_toLeftOf="@id/audio_country_data"
+            />
+
+        <TextView
+            android:id="@+id/audio_country_data"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yp_black"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="13sp"
+
+            tools:text="Великобритания"
+
+            android:layout_marginTop="17dp"
+            app:layout_constraintTop_toBottomOf="@id/audio_genre"
+            app:layout_constraintLeft_toRightOf="@id/audio_country"
+            app:layout_constraintRight_toLeftOf="@id/audio_data_right_guideline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            app:layout_constraintTop_toBottomOf="@id/audio_country"
+            app:layout_constraintLeft_toRightOf="@id/left_guideline"
+            android:background="@color/transparent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -1,6 +1,7 @@
 package ru.namerpro.playlistmaker
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,12 +13,15 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.JsonSerializer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+const val TRACK_INTENT_KEY = "track_intent_key"
 
 class SearchActivity : AppCompatActivity() {
 
@@ -84,19 +88,29 @@ class SearchActivity : AppCompatActivity() {
         trackAdapter.itemClickListener = { _, track ->
             historyManager.addTrack(track)
             historyAdapter.notifyDataSetChanged()
+
+            val audioIntent = Intent(this, AudioActivity::class.java)
+            audioIntent.putExtra(TRACK_INTENT_KEY, Gson().toJson(track))
+            startActivity(audioIntent)
         }
 
         val searchHistoryElements = findViewById<ConstraintLayout>(R.id.search_history)
         searchArea.setOnFocusChangeListener { _, hasFocus ->
             hideAllPlaceholders()
             searchHistoryElements.visibility = if (hasFocus && searchArea.text.isNullOrEmpty() && !historyManager.isHistoryEmpty()) View.VISIBLE else View.GONE
-        } //hideAllPlaceholders()
+        }
 
         val clearTrackHistory = findViewById<Button>(R.id.clear_track_history)
         clearTrackHistory.setOnClickListener {
             historyManager.clearHistory()
             historyAdapter.notifyDataSetChanged()
             searchHistoryElements.visibility = View.GONE
+        }
+
+        historyAdapter.itemClickListener = { _, track ->
+            val audioIntent = Intent(this, AudioActivity::class.java)
+            audioIntent.putExtra(TRACK_INTENT_KEY, Gson().toJson(track))
+            startActivity(audioIntent)
         }
 
         val clearTextButton = findViewById<ImageView>(R.id.search_clear_text)
@@ -171,8 +185,8 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         historyManager.saveTracks()
     }
 
