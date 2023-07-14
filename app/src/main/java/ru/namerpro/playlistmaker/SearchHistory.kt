@@ -10,7 +10,7 @@ const val HISTORY_LIST_KEY = "history_list_key"
 class SearchHistory(private val sharedPrefs: SharedPreferences) {
 
     companion object {
-        val trackHistory = mutableListOf<Track>()
+        var trackHistory = mutableListOf<Track>()
         const val maximumElementsInHistory = 10
     }
 
@@ -19,8 +19,11 @@ class SearchHistory(private val sharedPrefs: SharedPreferences) {
     }
 
     private fun loadTracks() {
-        val json = sharedPrefs.getString(HISTORY_LIST_KEY, null) ?: return
-        trackHistory.addAll(Gson().fromJson<MutableList<Track>>(json, object : TypeToken<MutableList<Track>>() {}.type))
+        val json = sharedPrefs.getString(HISTORY_LIST_KEY, null)
+        val possibleTrackHistory = Gson().fromJson<MutableList<Track>>(json, object : TypeToken<MutableList<Track>>() {}.type)
+        if (possibleTrackHistory != null) {
+            trackHistory.addAll(possibleTrackHistory)
+        }
     }
 
     fun saveTracks() {

@@ -92,4 +92,44 @@
         <item name="android:paddingVertical">10sp</item>
         <item name="android:paddingHorizontal">14sp</item>
     </style>
+
+    <style name="audio_track_name_author">
+        <item name="layout_constrainedWidth">true</item>
+        <item name="layout_constraintHorizontal_bias">0</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/yp_white</item>
+    </style>
+
+    <style name="audio_fab">
+        <item name="android:layout_width">52dp</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="fabCustomSize">52dp</item>
+        <item name="elevation">0dp</item>
+        <item name="tint">@color/yp_white</item>
+        <item name="backgroundTint">@color/yp_25_percent_alpha_white</item>
+        <item name="android:layout_marginTop">54dp</item>
+    </style>
+
+    <style name="audio_track_info" parent="audio_track_info_data">
+        <item name="android:textColor">@color/yp_gray</item>
+        <item name="layout_constraintHorizontal_chainStyle">spread_inside</item>
+    </style>
+
+    <style name="audio_track_info_data">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/yp_white</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="audio_track_progress">
+        <item name="android:textColor">@color/yp_white</item>
+    </style>
+
+    <style name="audio_back_button">
+        <item name="tint">@color/yp_white</item>
+    </style>
 </resources>

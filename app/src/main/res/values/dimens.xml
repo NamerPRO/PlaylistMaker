@@ -5,4 +5,5 @@
     <dimen name="app_settings_standard_padding">21dp</dimen>
     <dimen name="app_settings_standard_margin_left">12dp</dimen>
     <dimen name="app_settings_exceptions_margin">110sp</dimen>
+    <dimen name="audio_track_info_margin_top">17dp</dimen>
 </resources>
