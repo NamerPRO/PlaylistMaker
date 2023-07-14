@@ -6,146 +6,161 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/noLoadingScreen">
 
-        <ImageView
-            android:id="@+id/search_back"
-            android:src="@drawable/ic_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            style="@style/activity_back_button"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_search_menu_name"
-            style="@style/activity_top_text"/>
+            <ImageView
+                android:id="@+id/search_back"
+                android:src="@drawable/ic_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                style="@style/activity_back_button"/>
 
-    </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_search_menu_name"
+                style="@style/activity_top_text"/>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="24dp">
+        </FrameLayout>
 
-        <EditText
-            android:imeOptions="actionDone"
-            android:singleLine="true"
-            android:id="@+id/search_area"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="@string/app_search_hint"
-            android:maxLines="1"
-            android:paddingLeft="13dp"
-            android:paddingVertical="8.5dp"
-            android:textIsSelectable="false"
-            android:textSize="16sp"
-            android:fontFamily="@font/ys_display_regular"
-            android:drawablePadding="9dp"
-            style="@style/edit_text_theme"/>
+            android:paddingHorizontal="16dp"
+            android:paddingTop="24dp">
 
-        <ImageView
-            android:id="@+id/search_clear_text"
-            android:layout_width="wrap_content"
+            <EditText
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:id="@+id/search_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/app_search_hint"
+                android:maxLines="1"
+                android:paddingLeft="13dp"
+                android:paddingVertical="8.5dp"
+                android:textIsSelectable="false"
+                android:textSize="16sp"
+                android:fontFamily="@font/ys_display_regular"
+                android:drawablePadding="9dp"
+                style="@style/edit_text_theme"/>
+
+            <ImageView
+                android:id="@+id/search_clear_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="14dp"
+                android:background="@color/transparent"
+                android:visibility="gone"
+                style="@style/clear_button"/>
+
+        </FrameLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search_history"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="14dp"
-            android:background="@color/transparent"
-            android:visibility="gone"
-            style="@style/clear_button"/>
+            android:layout_marginTop="50dp"
+            android:visibility="gone">
 
-    </FrameLayout>
+            <TextView
+                android:id="@+id/textView"
+                style="@style/search_exception"
+                android:text="@string/search_history_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/search_history"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:visibility="gone">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/track_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toTopOf="@id/clear_track_history"
+                app:layout_constraintTop_toBottomOf="@id/textView"
+                app:layout_constraintVertical_chainStyle="packed"/>
 
-        <TextView
-            android:id="@+id/textView"
-            style="@style/search_exception"
-            android:text="@string/search_history_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/clear_track_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clear_search_history"
+                android:layout_marginTop="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/track_history"
+                style="@style/search_reconnect_button_style"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/nothing_found"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_settings_exceptions_margin"
+            android:visibility="gone">
+
+            <TextView
+                android:text="@string/search_nothing_found"
+                android:drawableTop="@drawable/ic_search_nothing_found"
+                style="@style/search_exception"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/nointernet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/app_settings_exceptions_margin"
+            android:visibility="gone">
+
+            <TextView
+                android:text="@string/search_nointernet"
+                android:drawableTop="@drawable/ic_search_nointernet"
+                android:maxWidth="312dp"
+                style="@style/search_exception"/>
+
+            <Button
+                android:id="@+id/search_update_content"
+                android:layout_marginTop="24sp"
+                android:text="@string/search_update"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/search_reconnect_button_style"/>
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/track_history"
+            android:id="@+id/track_view"
+            android:layout_marginTop="24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constrainedHeight="true"
-            app:layout_constraintBottom_toTopOf="@id/clear_track_history"
-            app:layout_constraintTop_toBottomOf="@id/textView"
-            app:layout_constraintVertical_chainStyle="packed"/>
-
-        <Button
-            android:id="@+id/clear_track_history"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/clear_search_history"
-            android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/track_history"
-            style="@style/search_reconnect_button_style"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <FrameLayout
-        android:id="@+id/nothing_found"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/app_settings_exceptions_margin"
-        android:visibility="gone">
-
-        <TextView
-            android:text="@string/search_nothing_found"
-            android:drawableTop="@drawable/ic_search_nothing_found"
-            style="@style/search_exception"/>
-
-    </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/nointernet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/app_settings_exceptions_margin"
-        android:visibility="gone">
-
-        <TextView
-            android:text="@string/search_nointernet"
-            android:drawableTop="@drawable/ic_search_nointernet"
-            android:maxWidth="312dp"
-            style="@style/search_exception"/>
-
-        <Button
-            android:id="@+id/search_update_content"
-            android:layout_marginTop="24sp"
-            android:text="@string/search_update"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/search_reconnect_button_style"/>
+            tools:visibility="gone"/>
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/track_view"
-        android:layout_marginTop="24dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:visibility="gone"/>
+    <ProgressBar android:id="@+id/progressBar"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="248sp"
+        android:indeterminateTint="@color/progressBarColor"
+        android:visibility="gone"/>
 
 </LinearLayout>

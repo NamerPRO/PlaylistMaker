@@ -2,7 +2,10 @@ package ru.namerpro.playlistmaker
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.JsonSerializer
+import kotlinx.coroutines.Runnable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,23 +34,31 @@ class SearchActivity : AppCompatActivity() {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    private lateinit var savedRequest: String
-    private lateinit var noInternet: LinearLayout
-    private lateinit var nothingFound: FrameLayout
-    private lateinit var trackView: RecyclerView
+    private val itunesService = retrofit.create(ItunesServiceApi::class.java)
 
     private val trackList = mutableListOf<Track>()
     private val trackAdapter = TrackAdapter(trackList)
-    private val itunesService = retrofit.create(ItunesServiceApi::class.java)
 
     private val historyAdapter = TrackAdapter(SearchHistory.trackHistory)
     private lateinit var historyView: RecyclerView
     private lateinit var historyManager: SearchHistory
 
+    private lateinit var noInternet: LinearLayout
+    private lateinit var nothingFound: FrameLayout
+    private lateinit var trackView: RecyclerView
+
+    private var isClickAllowed = true
+
     var searchDataValue = ""
+
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var searchRunnable : Runnable
+    private lateinit var searchArea: EditText
 
     companion object {
         const val SEARCH_DATA = "SEARCH_DATA"
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -70,7 +82,7 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
 
-        val searchArea = findViewById<EditText>(R.id.search_area)
+        searchArea = findViewById(R.id.search_area)
 
         trackView = findViewById(R.id.track_view)
         trackView.layoutManager = LinearLayoutManager(this)
@@ -86,17 +98,18 @@ class SearchActivity : AppCompatActivity() {
         historyAdapter.notifyDataSetChanged()
 
         trackAdapter.itemClickListener = { _, track ->
-            historyManager.addTrack(track)
-            historyAdapter.notifyDataSetChanged()
+            if (clickDebounce()) {
+                historyManager.addTrack(track)
+                historyAdapter.notifyDataSetChanged()
 
-            val audioIntent = Intent(this, AudioActivity::class.java)
-            audioIntent.putExtra(TRACK_INTENT_KEY, Gson().toJson(track))
-            startActivity(audioIntent)
+                val audioIntent = Intent(this, AudioActivity::class.java)
+                audioIntent.putExtra(TRACK_INTENT_KEY, Gson().toJson(track))
+                startActivity(audioIntent)
+            }
         }
 
         val searchHistoryElements = findViewById<ConstraintLayout>(R.id.search_history)
         searchArea.setOnFocusChangeListener { _, hasFocus ->
-            hideAllPlaceholders()
             searchHistoryElements.visibility = if (hasFocus && searchArea.text.isNullOrEmpty() && !historyManager.isHistoryEmpty()) View.VISIBLE else View.GONE
         }
 
@@ -108,9 +121,11 @@ class SearchActivity : AppCompatActivity() {
         }
 
         historyAdapter.itemClickListener = { _, track ->
-            val audioIntent = Intent(this, AudioActivity::class.java)
-            audioIntent.putExtra(TRACK_INTENT_KEY, Gson().toJson(track))
-            startActivity(audioIntent)
+            if (clickDebounce()) {
+                val audioIntent = Intent(this, AudioActivity::class.java)
+                audioIntent.putExtra(TRACK_INTENT_KEY, Gson().toJson(track))
+                startActivity(audioIntent)
+            }
         }
 
         val clearTextButton = findViewById<ImageView>(R.id.search_clear_text)
@@ -138,12 +153,25 @@ class SearchActivity : AppCompatActivity() {
         nothingFound = findViewById(R.id.nothing_found)
         noInternet = findViewById(R.id.nointernet)
 
-        val itunesCallback = object : Callback<TrackResponse> {
+        searchArea.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
 
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                searchDebounce()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        })
+
+        val itunesCallback = object : Callback<TrackResponse> {
             override fun onResponse(
                 call: Call<TrackResponse>,
                 response: Response<TrackResponse>
             ) {
+                findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.noLoadingScreen).visibility = View.VISIBLE
                 trackList.clear()
                 if (response.code() == 200) {
                     if (response.body()?.results?.isNotEmpty() == true) {
@@ -159,30 +187,42 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
+                findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.noLoadingScreen).visibility = View.VISIBLE
                 trackList.clear()
                 showContentOrPlaceholder(ContentType.NO_INTERNET)
             }
-
         }
+
+        searchRunnable = Runnable { searchRequest(itunesCallback) }
 
         val updateContent = findViewById<Button>(R.id.search_update_content)
         updateContent.setOnClickListener {
-            itunesService.search(savedRequest).enqueue(itunesCallback)
+            itunesService.search(searchArea.text.toString()).enqueue(itunesCallback)
         }
 
-        searchArea.setOnEditorActionListener { _, actionId, _ ->
-            searchHistoryElements.visibility = View.GONE
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                searchArea.clearFocus()
-                if (searchArea.text.isNotEmpty()) {
-                    savedRequest = searchArea.text.toString()
-                    itunesService.search(searchArea.text.toString()).enqueue(itunesCallback)
-                }
-                true
-            }
-            false
-        }
+    }
 
+    private fun searchRequest(itunesCallback: Callback<TrackResponse>) {
+        if (searchArea.text.isNotEmpty()) {
+            findViewById<LinearLayout>(R.id.noLoadingScreen).visibility = View.GONE
+            findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
+            itunesService.search(searchArea.text.toString()).enqueue(itunesCallback)
+        }
+    }
+
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
+
+    private fun clickDebounce() : Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
     }
 
     override fun onDestroy() {
