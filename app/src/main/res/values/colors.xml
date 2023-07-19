@@ -14,5 +14,6 @@
     <color name="yp_light_gray">#E6E8EB</color>
     <color name="red">#FF0000</color>
     <color name="transparent">#00000000</color>
+    <color name="progressBarColor">#3772E7</color>
     <color name="yp_25_percent_alpha_white">#40FFFFFF</color>
 </resources>

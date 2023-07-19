@@ -1,17 +1,37 @@
 package ru.namerpro.playlistmaker
 
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AudioActivity : AppCompatActivity() {
+
+    companion object {
+        private const val STATUS_DEFAULT = 0
+        private const val STATUS_PREPARED = 1
+        private const val STATUS_PLAYING = 2
+        private const val STATATUS_PAUSED = 3
+
+        private const val DELAY = 300L
+    }
+
+    private var mainThreadHandler: Handler? = null
+
+    private var playerState = STATUS_DEFAULT
+
+    private lateinit var play: ImageView
+    private var mediaPlayer = MediaPlayer()
+
+    private lateinit var previewUrl: String
 
     fun getCoverArtwork(track: Track) = track.artworkUrl100.replaceAfterLast('/',"512x512bb.jpg")
 
@@ -19,7 +39,18 @@ class AudioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_audio)
 
+        mainThreadHandler = Handler(Looper.getMainLooper())
+
         val track : Track = Gson().fromJson(intent.extras!!.getString(TRACK_INTENT_KEY), Track::class.java)
+
+        play = findViewById(R.id.audio_play_button)
+
+        previewUrl = track.previewUrl
+        preparePlayer()
+
+        play.setOnClickListener {
+            playBackControl()
+        }
 
         val audioTrackImage = findViewById<ImageView>(R.id.audio_track_image)
         Glide.with(this)
@@ -60,7 +91,75 @@ class AudioActivity : AppCompatActivity() {
         }
 
         val audioTrackProgress = findViewById<TextView>(R.id.audio_track_progress)
-        audioTrackProgress.text = "0:30" // ToDo("Реализовать в следующих спринтах")
+        audioTrackProgress.text = "0:30"
+    }
+
+    override fun onPause() {
+        super.onPause()
+        pausePlayer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
+    }
+
+    private fun playBackControl() {
+        when (playerState) {
+            STATUS_PLAYING -> {
+                pausePlayer()
+            }
+            STATUS_PREPARED, STATATUS_PAUSED -> {
+                startPlayer()
+            }
+        }
+    }
+
+    private fun startTimer() {
+        mainThreadHandler?.post(createUpdateTimerTask())
+    }
+
+    private fun createUpdateTimerTask(): Runnable {
+        return object : Runnable {
+            override fun run() {
+                if (playerState == STATUS_PLAYING) {
+                    val currentPosition = SimpleDateFormat("mm:ss", Locale.getDefault()).format(mediaPlayer.currentPosition)
+                    findViewById<TextView>(R.id.audio_track_progress).text = currentPosition
+                    mainThreadHandler?.postDelayed(this, DELAY)
+                } else {
+                    mainThreadHandler?.removeCallbacks(this)
+                }
+            }
+        }
+    }
+
+    private fun preparePlayer() {
+        mediaPlayer.setDataSource(previewUrl)
+        mediaPlayer.prepareAsync()
+        mediaPlayer.setOnPreparedListener {
+            play.isEnabled = true
+            playerState = STATUS_PREPARED
+        }
+        mediaPlayer.setOnCompletionListener {
+            play.setImageResource(R.drawable.ic_audio_play_button)
+            playerState = STATUS_PREPARED
+            findViewById<TextView>(R.id.audio_track_progress).text = "00:00"
+            mediaPlayer.reset()
+            preparePlayer()
+        }
+    }
+
+    private fun startPlayer() {
+        mediaPlayer.start()
+        play.setImageResource(R.drawable.ic_audio_pause_button)
+        playerState = STATUS_PLAYING
+        startTimer()
+    }
+
+    private fun pausePlayer() {
+        mediaPlayer.pause()
+        play.setImageResource(R.drawable.ic_audio_play_button)
+        playerState = STATATUS_PAUSED
     }
 
 }
