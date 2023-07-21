@@ -16,15 +16,15 @@ class TracksRepositoryImpl(private val networkClient: NetworkClient) : TracksRep
                 (response as TracksSearchResponse).results.map {
                 Track(
                     it.trackName ?: "",
-                    it.artistName,
+                    it.artistName ?: "",
                     it.previewUrl ?: "",
                     SimpleDateFormat("mm:ss", Locale.getDefault()).format(it.trackTimeMillis),
-                    it.artworkUrl100,
-                    it.trackId,
-                    it.collectionName,
-                    it.releaseDate,
-                    it.primaryGenreName,
-                    it.country
+                    it.artworkUrl100 ?: "",
+                    it.trackId ?: -1,
+                    it.collectionName ?: "",
+                    it.releaseDate ?: "",
+                    it.primaryGenreName ?: "",
+                    it.country ?: ""
                 )},
                 response.resultCode
             )

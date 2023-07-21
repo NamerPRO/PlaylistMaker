@@ -46,8 +46,9 @@ class SearchActivity : AppCompatActivity(), SharedPreferencesListener {
     }
 
     override fun onPreferencesSave(): String {
+        val json = Gson().toJson(HistoryModel.trackHistory)
         HistoryModel.trackHistory.clear()
-        return Gson().toJson(HistoryModel.trackHistory)
+        return json
     }
     // ===
 
