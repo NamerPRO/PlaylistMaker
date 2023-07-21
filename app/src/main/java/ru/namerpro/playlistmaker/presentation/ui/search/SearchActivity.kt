@@ -22,6 +22,7 @@ import kotlinx.coroutines.Runnable
 import ru.namerpro.playlistmaker.Creator
 import ru.namerpro.playlistmaker.R
 import ru.namerpro.playlistmaker.data.sharedprefs.SharedPreferencesInteractorImpl.Companion.TRACK_HISTORY_PREFERENCES
+import ru.namerpro.playlistmaker.domain.api.SharedPreferencesInteractor
 import ru.namerpro.playlistmaker.domain.api.TracksInteractor
 import ru.namerpro.playlistmaker.domain.models.HistoryModel
 import ru.namerpro.playlistmaker.domain.models.Track
@@ -32,7 +33,7 @@ import ru.namerpro.playlistmaker.presentation.ui.tracks.TrackAdapter
 class SearchActivity : AppCompatActivity(), SharedPreferencesListener {
 
     private val history = HistoryModel()
-    private val preferencesInteractor = Creator.provideSharedPreferencesInteractor(getSharedPreferences(TRACK_HISTORY_PREFERENCES, MODE_PRIVATE),this)
+    private lateinit var preferencesInteractor: SharedPreferencesInteractor
 
     private val trackList = mutableListOf<Track>()
 
@@ -89,6 +90,8 @@ class SearchActivity : AppCompatActivity(), SharedPreferencesListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        preferencesInteractor = Creator.provideSharedPreferencesInteractor(getSharedPreferences(TRACK_HISTORY_PREFERENCES, MODE_PRIVATE),this)
 
         val searchBackButton = findViewById<ImageView>(R.id.search_back)
         searchBackButton.setOnClickListener {
