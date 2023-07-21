@@ -1,10 +1,14 @@
-package ru.namerpro.playlistmaker
+package ru.namerpro.playlistmaker.presentation.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import ru.namerpro.playlistmaker.R
+import ru.namerpro.playlistmaker.presentation.ui.media.MediaActivity
+import ru.namerpro.playlistmaker.presentation.ui.search.SearchActivity
+import ru.namerpro.playlistmaker.presentation.ui.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,4 +35,5 @@ class MainActivity : AppCompatActivity() {
             startActivity(settingsIntent)
         }
     }
+
 }

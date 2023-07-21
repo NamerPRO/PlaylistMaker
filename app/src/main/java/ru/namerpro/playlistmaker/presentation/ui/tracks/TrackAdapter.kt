@@ -1,8 +1,10 @@
-package ru.namerpro.playlistmaker
+package ru.namerpro.playlistmaker.presentation.ui.tracks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.namerpro.playlistmaker.R
+import ru.namerpro.playlistmaker.domain.models.Track
 
 class TrackAdapter(private val tracks: List<Track>) : RecyclerView.Adapter<TrackViewHolder>() {
 

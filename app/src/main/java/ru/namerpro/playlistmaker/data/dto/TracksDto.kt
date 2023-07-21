@@ -1,9 +1,9 @@
-package ru.namerpro.playlistmaker
+package ru.namerpro.playlistmaker.data.dto
 
-data class Track(
-    val trackName: String,
+data class TracksDto(
+    val trackName: String?,
     val artistName: String,
-    val previewUrl: String,
+    val previewUrl: String?,
     val trackTimeMillis: Long,
     val artworkUrl100: String,
     val trackId: Long,
@@ -11,4 +11,4 @@ data class Track(
     val releaseDate: String,
     val primaryGenreName: String,
     val country: String
-    )
+)
