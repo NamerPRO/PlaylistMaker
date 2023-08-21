@@ -1,7 +1,8 @@
-package ru.namerpro.playlistmaker
+package ru.namerpro.playlistmaker.presentation.ui.media
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.namerpro.playlistmaker.R
 
 class MediaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
