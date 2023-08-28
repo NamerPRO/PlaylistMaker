@@ -1,16 +1,8 @@
 package ru.namerpro.playlistmaker.search.ui.view_model
 
-import android.app.Application
 import android.os.Handler
 import android.os.Looper
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import ru.namerpro.playlistmaker.creator.Creator
+import androidx.lifecycle.*
 import ru.namerpro.playlistmaker.search.domain.api.HistoryInteractor
 import ru.namerpro.playlistmaker.search.domain.api.SharedPreferencesSearchInteractor
 import ru.namerpro.playlistmaker.search.domain.api.TracksInteractor
@@ -19,30 +11,15 @@ import ru.namerpro.playlistmaker.search.ui.activity.state.SearchRenderState
 import ru.namerpro.playlistmaker.universal.domain.models.SingleLiveEvent
 
 class SearchViewModel(
-    application: Application,
     private val tracksInteractor: TracksInteractor,
     private val preferencesSearchInteractor: SharedPreferencesSearchInteractor,
     private val historyInteractor: HistoryInteractor
-) : AndroidViewModel(application) {
+) : ViewModel() {
 
     companion object {
         const val TRACK_INTENT_KEY = "track_intent_key"
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
         private const val CLICK_DEBOUNCE_DELAY = 1000L
-
-        fun getViewModelFactory(
-            preferencesSearchInteractor: SharedPreferencesSearchInteractor,
-            tracksInteractor: TracksInteractor
-        ): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                SearchViewModel(
-                    application = this[APPLICATION_KEY] as Application,
-                    preferencesSearchInteractor = preferencesSearchInteractor,
-                    tracksInteractor = tracksInteractor,
-                    historyInteractor = Creator.provideHistoryInteractor()
-                )
-            }
-        }
     }
 
     private val renderStateLiveData = MutableLiveData<SearchRenderState>()
@@ -58,7 +35,10 @@ class SearchViewModel(
 
     private val itunesCallback = object : TracksInteractor.TracksCallback {
 
-        override fun handle(foundTracks: List<TrackModel>, responseCode: Int) {
+        override fun handle(
+            foundTracks: List<TrackModel>,
+            responseCode: Int
+        ) {
             if (responseCode == 200) {
                 if (foundTracks.isNotEmpty()) {
                     renderStateLiveData.postValue(
@@ -118,7 +98,10 @@ class SearchViewModel(
         renderStateLiveData.postValue(SearchRenderState.Empty)
     }
 
-    fun searchAreaFocusExecutor(searchViewText: String, hasFocus: Boolean) {
+    fun searchAreaFocusExecutor(
+        searchViewText: String,
+        hasFocus: Boolean
+    ) {
         if (searchViewText.isNotEmpty()) {
             return
         }
@@ -134,7 +117,9 @@ class SearchViewModel(
         }
     }
 
-    fun searchAreaTextChangedExecutor(searchViewText: String) {
+    fun searchAreaTextChangedExecutor(
+        searchViewText: String
+    ) {
         if (searchDataValue == searchViewText) {
             return
         }
@@ -169,7 +154,9 @@ class SearchViewModel(
         return historyInteractor.getHistory()
     }
 
-    fun appendHistory(track: TrackModel) {
+    fun appendHistory(
+        track: TrackModel
+    ) {
         historyInteractor.addTrack(track)
     }
 

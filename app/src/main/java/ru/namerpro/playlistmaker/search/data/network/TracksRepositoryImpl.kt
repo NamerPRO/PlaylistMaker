@@ -7,9 +7,13 @@ import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TracksRepositoryImpl(private val networkClient: NetworkClient) : TracksRepository {
+class TracksRepositoryImpl(
+    private val networkClient: NetworkClient
+) : TracksRepository {
 
-    override fun searchTracks(trackName: String): Pair<List<TrackModel>, Int> {
+    override fun searchTracks(
+        trackName: String
+    ): Pair<List<TrackModel>, Int> {
         val response = networkClient.doRequest(TracksSearchRequest(trackName))
         return if (response.resultCode == 200) {
             Pair(

@@ -4,9 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import ru.namerpro.playlistmaker.universal.domain.models.SingleLiveEvent
 import ru.namerpro.playlistmaker.settings.domain.api.SharedPreferencesSettingsInteractor
 import ru.namerpro.playlistmaker.settings.domain.api.NavigationInteractor
@@ -16,20 +13,6 @@ class SettingsViewModel(
     private val preferencesInteractor: SharedPreferencesSettingsInteractor,
     private val navigationInteractor: NavigationInteractor
 ) : ViewModel() {
-
-    companion object {
-        fun getViewModelFactory(
-            preferencesInteractor: SharedPreferencesSettingsInteractor,
-            navigationInteractor: NavigationInteractor
-        ): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                SettingsViewModel(
-                    preferencesInteractor = preferencesInteractor,
-                    navigationInteractor = navigationInteractor
-                )
-            }
-        }
-    }
 
     var isThemeDark: Boolean = preferencesInteractor.getSwitchPosition()
 
@@ -72,7 +55,9 @@ class SettingsViewModel(
         intentLiveData.postValue(licenseIntent)
     }
 
-    fun switchTheme(isEnabled: Boolean) {
+    fun switchTheme(
+        isEnabled: Boolean
+    ) {
         isThemeDark = isEnabled
         preferencesInteractor.saveSwitchPosition(isThemeDark)
         AppCompatDelegate.setDefaultNightMode(

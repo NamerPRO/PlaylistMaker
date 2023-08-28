@@ -5,11 +5,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import ru.namerpro.playlistmaker.R
 import ru.namerpro.playlistmaker.databinding.ActivityAudioBinding
 import ru.namerpro.playlistmaker.player.ui.view_model.PlayerViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class PlayerActivity : AppCompatActivity() {
 
@@ -26,19 +27,19 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var audioTrackProgress: TextView
     private lateinit var audioAlbum: TextView
 
-    private lateinit var viewModel: PlayerViewModel
+    private val viewModel: PlayerViewModel by viewModel {
+        parametersOf(intent)
+    }
 
     private lateinit var binding: ActivityAudioBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?
+    ) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityAudioBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel = ViewModelProvider(this, PlayerViewModel.getViewModelFactory(
-            intent = intent
-        ))[PlayerViewModel::class.java]
 
         audioTrackImage = binding.audioTrackImage
         audioTrackName = binding.audioTrackName
@@ -117,34 +118,26 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun setPlayerCompletion() {
-        runOnUiThread {
-            play.isEnabled = true
-            play.setImageResource(R.drawable.ic_audio_play_button)
-            audioTrackProgress.text = "00:00"
-        }
+        play.isEnabled = true
+        play.setImageResource(R.drawable.ic_audio_play_button)
+        audioTrackProgress.text = "00:00"
     }
 
     private fun setPlayerStart() {
-        runOnUiThread {
-            play.isEnabled = true
-            play.setImageResource(R.drawable.ic_audio_pause_button)
-            viewModel.updateProgress()
-        }
+        play.isEnabled = true
+        play.setImageResource(R.drawable.ic_audio_pause_button)
+        viewModel.updateProgress()
     }
 
     private fun setPlayerPause() {
-        runOnUiThread {
-            play.isEnabled = true
-            play.setImageResource(R.drawable.ic_audio_play_button)
-        }
+        play.isEnabled = true
+        play.setImageResource(R.drawable.ic_audio_play_button)
     }
 
     private fun setPlayerTimerTick() {
-        runOnUiThread {
-            play.isEnabled = true
-            audioTrackProgress.text = viewModel.getCurrentTime()
-            viewModel.updateProgress()
-        }
+        play.isEnabled = true
+        audioTrackProgress.text = viewModel.getCurrentTime()
+        viewModel.updateProgress()
     }
 
 }

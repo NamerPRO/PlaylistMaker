@@ -8,16 +8,19 @@ import ru.namerpro.playlistmaker.search.domain.api.SharedPreferencesSearchReposi
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 
 class SharedPreferencesSearchInteractorImpl(
-    private val sharedPreferencesSearchRepository: SharedPreferencesSearchRepository
+    private val sharedPreferencesSearchRepository: SharedPreferencesSearchRepository,
+    private val gson: Gson
 ) : SharedPreferencesSearchInteractor {
 
-    override fun saveTracks(tracks: ArrayList<TrackModel>) {
-        sharedPreferencesSearchRepository.saveTracks(Gson().toJson(tracks))
+    override fun saveTracks(
+        tracks: ArrayList<TrackModel>
+    ) {
+        sharedPreferencesSearchRepository.saveTracks(gson.toJson(tracks))
     }
 
     override fun loadTracks(): ArrayList<TrackModel> {
         val json = sharedPreferencesSearchRepository.loadTracks()
-        return Gson().fromJson(json, object : TypeToken<ArrayList<TrackModel>>() {}.type)
+        return gson.fromJson(json, object : TypeToken<ArrayList<TrackModel>>() {}.type) ?: ArrayList()
     }
 
     override fun getPreferences(): SharedPreferences {

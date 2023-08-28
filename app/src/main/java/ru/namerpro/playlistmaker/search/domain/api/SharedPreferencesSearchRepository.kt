@@ -4,7 +4,9 @@ import android.content.SharedPreferences
 
 interface SharedPreferencesSearchRepository {
 
-    fun saveTracks(json: String)
+    fun saveTracks(
+        json: String
+    )
 
     fun loadTracks() : String
 

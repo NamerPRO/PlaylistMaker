@@ -12,17 +12,15 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import ru.namerpro.playlistmaker.creator.Creator
 import ru.namerpro.playlistmaker.databinding.ActivitySearchBinding
-import ru.namerpro.playlistmaker.search.data.shared_preferences.SharedPreferencesSearchRepositoryImpl
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 import ru.namerpro.playlistmaker.search.ui.activity.state.SearchRenderState
 import ru.namerpro.playlistmaker.search.ui.view_model.SearchViewModel
 import ru.namerpro.playlistmaker.player.ui.activity.PlayerActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : AppCompatActivity() {
 
@@ -44,24 +42,18 @@ class SearchActivity : AppCompatActivity() {
 
     private val handler = Handler(Looper.getMainLooper())
 
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel: SearchViewModel by viewModel()
 
     private lateinit var binding: ActivitySearchBinding
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?
+    ) {
         super.onCreate(savedInstanceState)
 
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel = ViewModelProvider(this, SearchViewModel.getViewModelFactory(
-            preferencesSearchInteractor = Creator.provideSearchSharedPreferencesInteractor(applicationContext.getSharedPreferences(
-                SharedPreferencesSearchRepositoryImpl.TRACK_HISTORY_PREFERENCES,
-                MODE_PRIVATE
-            )),
-            tracksInteractor = Creator.provideTracksInteractor()
-        ))[SearchViewModel::class.java]
 
         historyView = binding.trackHistory
         noInternetLayout = binding.noInternet
@@ -150,7 +142,9 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun startAudioActivity(track: TrackModel) {
+    private fun startAudioActivity(
+        track: TrackModel
+    ) {
         val audioIntent = Intent(this, PlayerActivity::class.java)
         audioIntent.putExtra(SearchViewModel.TRACK_INTENT_KEY, Gson().toJson(track))
         startActivity(audioIntent)
@@ -187,7 +181,9 @@ class SearchActivity : AppCompatActivity() {
         hideKeyboardAndFocus()
     }
 
-    private fun showTracks(tracks: List<TrackModel>) {
+    private fun showTracks(
+        tracks: List<TrackModel>
+    ) {
         trackAdapter.tracks.clear()
         trackAdapter.tracks.addAll(tracks)
         updateRecyclerViewComponents(trackAdapter)
@@ -209,13 +205,18 @@ class SearchActivity : AppCompatActivity() {
         clearTextButtonView.visibility = View.GONE
     }
 
-    private fun showSearchArea(showClearButton: Boolean, showSearchHistory: Boolean) {
+    private fun showSearchArea(
+        showClearButton: Boolean,
+        showSearchHistory: Boolean
+    ) {
         hidePlaceholders()
         clearTextButtonView.visibility = if (showClearButton) View.VISIBLE else View.GONE
         searchHistoryElementsLayout.visibility = if (showSearchHistory) View.VISIBLE else View.GONE
     }
 
-    private fun render(state: SearchRenderState) {
+    private fun render(
+        state: SearchRenderState
+    ) {
         when (state) {
             is SearchRenderState.Loading -> showLoading()
             is SearchRenderState.NoInternet -> showNoInternet()
@@ -228,7 +229,9 @@ class SearchActivity : AppCompatActivity() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun updateRecyclerViewComponents(adapter: TrackAdapter) {
+    private fun updateRecyclerViewComponents(
+        adapter: TrackAdapter
+    ) {
         adapter.notifyDataSetChanged()
     }
 
@@ -236,11 +239,15 @@ class SearchActivity : AppCompatActivity() {
         return searchAreaView.text?.toString().orEmpty()
     }
 
-    private fun setSearchAreaViewText(text: String?) {
+    private fun setSearchAreaViewText(
+        text: String?
+    ) {
         searchAreaView.setText(text.orEmpty())
     }
 
-    private fun setSearchAreaViewFocus(isFocused: Boolean) {
+    private fun setSearchAreaViewFocus(
+        isFocused: Boolean
+    ) {
         if (isFocused) {
             searchAreaView.requestFocus()
         } else {

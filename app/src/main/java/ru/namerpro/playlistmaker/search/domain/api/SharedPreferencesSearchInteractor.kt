@@ -5,7 +5,9 @@ import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 
 interface SharedPreferencesSearchInteractor {
 
-    fun saveTracks(tracks: ArrayList<TrackModel>)
+    fun saveTracks(
+        tracks: ArrayList<TrackModel>
+    )
 
     fun loadTracks() : ArrayList<TrackModel>
 
