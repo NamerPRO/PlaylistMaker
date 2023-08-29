@@ -1,6 +1,7 @@
 package ru.namerpro.playlistmaker.player.domain.impl
 
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerInteractor
+import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerListener
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerRepository
 
 class MediaPlayerInteractorImpl(
@@ -11,7 +12,9 @@ class MediaPlayerInteractorImpl(
         mediaPlayerRepository.playBackControl()
     }
 
-    override fun preparePlayer(previewUrl: String) {
+    override fun preparePlayer(
+        previewUrl: String
+    ) {
         mediaPlayerRepository.preparePlayer(previewUrl)
     }
 
@@ -41,6 +44,12 @@ class MediaPlayerInteractorImpl(
 
     override fun isPrepared(): Boolean {
         return mediaPlayerRepository.isPrepared()
+    }
+
+    override fun setListener(
+        listener: MediaPlayerListener
+    ) {
+        mediaPlayerRepository.setListener(listener)
     }
 
 }

@@ -9,15 +9,21 @@ class NavigationInteractorImpl(
     private val navigationRepository: NavigationRepository
 ) : NavigationInteractor {
 
-    override fun shareAppIntent(courseLink: String): Intent {
+    override fun shareAppIntent(
+        courseLink: String
+    ): Intent {
         return navigationRepository.shareAppIntent(courseLink)
     }
 
-    override fun contactSupportIntent(concreteEmailModel: EmailModel): Intent {
+    override fun contactSupportIntent(
+        concreteEmailModel: EmailModel
+    ): Intent {
         return navigationRepository.contactSupportIntent(concreteEmailModel)
     }
 
-    override fun licenseAgreementIntent(licenseLink: String): Intent {
+    override fun licenseAgreementIntent(
+        licenseLink: String
+    ): Intent {
         return navigationRepository.licenseAgreementIntent(licenseLink)
     }
 

@@ -4,6 +4,8 @@ import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 
 interface TracksRepository {
 
-    fun searchTracks(trackName: String): Pair<List<TrackModel>, Int>
+    fun searchTracks(
+        trackName: String
+    ): Pair<List<TrackModel>, Int>
 
 }

@@ -5,10 +5,16 @@ import ru.namerpro.playlistmaker.settings.domain.models.EmailModel
 
 interface NavigationInteractor {
 
-    fun shareAppIntent(courseLink: String): Intent
+    fun shareAppIntent(
+        courseLink: String
+    ): Intent
 
-    fun contactSupportIntent(concreteEmailModel: EmailModel): Intent
+    fun contactSupportIntent(
+        concreteEmailModel: EmailModel
+    ): Intent
 
-    fun licenseAgreementIntent(licenseLink: String): Intent
+    fun licenseAgreementIntent(
+        licenseLink: String
+    ): Intent
 
 }

@@ -6,13 +6,9 @@ import ru.namerpro.playlistmaker.PlaylistApplication
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerListener
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerRepository
 
-class MediaPlayerRepositoryImpl(
-    private val listener: MediaPlayerListener
-) : MediaPlayerRepository {
+class MediaPlayerRepositoryImpl : MediaPlayerRepository {
 
-    companion object {
-        const val DELAY = 100L
-    }
+    private lateinit var listener: MediaPlayerListener
 
     private var playerState: MediaPlayerState = MediaPlayerState.Default
     private val mediaPlayer = MediaPlayer()
@@ -28,7 +24,9 @@ class MediaPlayerRepositoryImpl(
         }
     }
 
-    override fun preparePlayer(previewUrl: String) {
+    override fun preparePlayer(
+        previewUrl: String
+    ) {
         mediaPlayer.setDataSource(previewUrl)
 
         mediaPlayer.setOnPreparedListener {
@@ -83,6 +81,16 @@ class MediaPlayerRepositoryImpl(
 
     override fun isPrepared(): Boolean {
         return playerState != MediaPlayerState.Default
+    }
+
+    override fun setListener(
+        listener: MediaPlayerListener
+    ) {
+        this.listener = listener
+    }
+
+    companion object {
+        const val DELAY = 100L
     }
 
 }

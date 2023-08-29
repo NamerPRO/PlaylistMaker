@@ -5,12 +5,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
-import androidx.lifecycle.ViewModelProvider
 import ru.namerpro.playlistmaker.R
-import ru.namerpro.playlistmaker.creator.Creator
 import ru.namerpro.playlistmaker.databinding.ActivitySettingsBinding
-import ru.namerpro.playlistmaker.settings.data.shared_preferences.SharedPreferencesSettingsRepositoryImpl
 import ru.namerpro.playlistmaker.settings.ui.view_model.SettingsViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -20,7 +18,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var contactSupportButtonView: TextView
     private lateinit var licenseAgreementButtonView: TextView
 
-    private lateinit var viewModel: SettingsViewModel
+    private val viewModel: SettingsViewModel by viewModel()
 
     private lateinit var binding: ActivitySettingsBinding
 
@@ -29,16 +27,6 @@ class SettingsActivity : AppCompatActivity() {
 
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel = ViewModelProvider(this, SettingsViewModel.getViewModelFactory(
-            preferencesInteractor = Creator.provideSettingsSharedPreferencesInteractor(
-                sharedPrefs = getSharedPreferences(
-                    SharedPreferencesSettingsRepositoryImpl.SWITCH_POSITION_PREFERENCES,
-                    MODE_PRIVATE
-                )
-            ),
-            navigationInteractor = Creator.provideSettingsNavigatorInteractor()
-        ))[SettingsViewModel::class.java]
 
         settingsBackView = binding.settingsBack
         settingsDayNightToggleView = binding.toggleDayNightMode

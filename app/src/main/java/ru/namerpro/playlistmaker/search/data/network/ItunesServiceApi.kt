@@ -8,6 +8,8 @@ import ru.namerpro.playlistmaker.search.data.dto.TracksSearchResponse
 interface ItunesServiceApi {
 
     @GET("/search?entry=song")
-    fun searchTracks(@Query("term") text: String): Call<TracksSearchResponse>
+    fun searchTracks(
+        @Query("term") text: String
+    ): Call<TracksSearchResponse>
 
 }

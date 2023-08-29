@@ -4,7 +4,9 @@ interface MediaPlayerInteractor {
 
     fun playBackControl()
 
-    fun preparePlayer(previewUrl: String)
+    fun preparePlayer(
+        previewUrl: String
+    )
 
     fun startPlayer()
 
@@ -19,5 +21,9 @@ interface MediaPlayerInteractor {
     fun getCurrentPosition(): Int
 
     fun isPrepared(): Boolean
+
+    fun setListener(
+        listener: MediaPlayerListener
+    )
 
 }

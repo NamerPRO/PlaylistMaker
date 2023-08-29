@@ -6,11 +6,8 @@ import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.gson.Gson
-import ru.namerpro.playlistmaker.creator.Creator
+import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerInteractor
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerListener
 import ru.namerpro.playlistmaker.player.ui.activity.PlayerUpdateState
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
@@ -19,27 +16,16 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class PlayerViewModel(
-    private val intent: Intent
+    intent: Intent,
+    private val mediaPlayerInteractor: MediaPlayerInteractor
 ) : ViewModel(), MediaPlayerListener {
 
-    companion object {
-        fun getViewModelFactory(
-            intent: Intent
-        ) : ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                PlayerViewModel(
-                    intent = intent
-                )
-            }
-        }
+    init {
+        mediaPlayerInteractor.setListener(this)
     }
 
     private val playerChangeLiveData = MutableLiveData<PlayerUpdateState>()
     fun observePlayerChange(): LiveData<PlayerUpdateState> = playerChangeLiveData
-
-    private val mediaPlayerInteractor = Creator.provideMediaPlayerInteractor(
-        listener = this
-    )
 
     val track: TrackModel = Gson().fromJson(intent.extras!!.getString(SearchViewModel.TRACK_INTENT_KEY), TrackModel::class.java)
 
@@ -47,7 +33,9 @@ class PlayerViewModel(
 
     var isPlayerPrepared = false
 
-    fun getCoverArtwork(track: TrackModel) = track.artworkUrl100.replaceAfterLast('/',"512x512bb.jpg")
+    fun getCoverArtwork(
+        track: TrackModel
+    ) = track.artworkUrl100.replaceAfterLast('/',"512x512bb.jpg")
 
     fun startStopPlayer() {
         mediaPlayerInteractor.playBackControl()
@@ -73,7 +61,7 @@ class PlayerViewModel(
         mainThreadHandler.postDelayed(mediaPlayerInteractor.getRunnable(), mediaPlayerInteractor.getUpdateDelay())
     }
 
-    fun getCurrentTime() : String {
+    fun getCurrentTime(): String {
         return SimpleDateFormat("mm:ss", Locale.getDefault()).format(mediaPlayerInteractor.getCurrentPosition())
     }
 

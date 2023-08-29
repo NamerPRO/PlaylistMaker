@@ -7,7 +7,9 @@ class SharedPreferencesSettingsInteractorImpl(
     private val sharedPreferencesSettingsRepository: SharedPreferencesSettingsRepository
 ) : SharedPreferencesSettingsInteractor {
 
-    override fun saveSwitchPosition(check: Boolean) {
+    override fun saveSwitchPosition(
+        check: Boolean
+    ) {
         sharedPreferencesSettingsRepository.saveSwitchPosition(check)
     }
 

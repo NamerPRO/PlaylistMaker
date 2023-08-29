@@ -7,11 +7,6 @@ class SharedPreferencesSearchRepositoryImpl(
     private val sharedPrefs: SharedPreferences
 ) : SharedPreferencesSearchRepository {
 
-    companion object {
-        const val TRACK_HISTORY_PREFERENCES = "track_history_preferences"
-        const val HISTORY_LIST_KEY = "history_list_key"
-    }
-
     override fun loadTracks(): String {
         val json = sharedPrefs.getString(HISTORY_LIST_KEY, null)
         return json ?: ""
@@ -27,6 +22,11 @@ class SharedPreferencesSearchRepositoryImpl(
 
     override fun getPreferences() : SharedPreferences {
         return sharedPrefs
+    }
+
+    companion object {
+        const val TRACK_HISTORY_PREFERENCES = "track_history_preferences"
+        const val HISTORY_LIST_KEY = "history_list_key"
     }
 
 }
