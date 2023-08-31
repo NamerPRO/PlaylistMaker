@@ -72,7 +72,7 @@
 
         <TextView
             android:id="@+id/textView"
-            style="@style/search_exception"
+            style="@style/handleable_exception"
             android:text="@string/search_history_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +98,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/track_history"
-            style="@style/search_reconnect_button_style"/>
+            style="@style/standard_round_button_style"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -106,13 +106,13 @@
         android:id="@+id/nothing_found"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/app_settings_exceptions_margin"
+        android:layout_marginTop="@dimen/app_handleable_exception_margin"
         android:visibility="gone">
 
         <TextView
             android:text="@string/search_nothing_found"
             android:drawableTop="@drawable/ic_search_nothing_found"
-            style="@style/search_exception"/>
+            style="@style/handleable_exception"/>
 
     </FrameLayout>
 
@@ -121,14 +121,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/app_settings_exceptions_margin"
+        android:layout_marginTop="@dimen/app_handleable_exception_margin"
         android:visibility="gone">
 
         <TextView
             android:text="@string/search_nointernet"
             android:drawableTop="@drawable/ic_search_nointernet"
             android:maxWidth="312dp"
-            style="@style/search_exception"/>
+            style="@style/handleable_exception"/>
 
         <Button
             android:id="@+id/search_update_content"
@@ -137,7 +137,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/search_reconnect_button_style"/>
+            style="@style/standard_round_button_style"/>
 
     </LinearLayout>
 

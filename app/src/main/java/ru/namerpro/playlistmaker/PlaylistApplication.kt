@@ -5,6 +5,7 @@ import android.content.Context
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.namerpro.playlistmaker.main.di.mainViewModelModule
+import ru.namerpro.playlistmaker.media.di.mediaViewModelModule
 import ru.namerpro.playlistmaker.player.di.playerInteractorModule
 import ru.namerpro.playlistmaker.player.di.playerRepositoryModule
 import ru.namerpro.playlistmaker.player.di.playerViewModelModule
@@ -28,7 +29,7 @@ class PlaylistApplication : Application() {
                 searchInteractorModule, searchNetworkModule, searchRepositoryModule, searchViewModelModule,
                 settingsInteractorModule, settingsRepositoryModule, settingsViewModelModule,
                 playerInteractorModule, playerRepositoryModule, playerViewModelModule,
-                mainViewModelModule
+                mainViewModelModule, mediaViewModelModule
             )
         }
     }
