@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/no_playlists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/search_update_content"
+            android:layout_marginBottom="50dp"
+            android:text="@string/media_add_new_playlist"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/standard_round_button_style"/>
+
+        <TextView
+            android:text="@string/media_no_playlists"
+            style="@style/handleable_exception"
+            app:drawableTopCompat="@drawable/ic_search_nothing_found" />
+
+    </LinearLayout>
+
+</FrameLayout>

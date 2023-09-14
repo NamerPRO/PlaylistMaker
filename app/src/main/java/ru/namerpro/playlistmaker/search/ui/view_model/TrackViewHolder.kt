@@ -1,22 +1,22 @@
 package ru.namerpro.playlistmaker.search.ui.view_model
 
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.namerpro.playlistmaker.R
+import ru.namerpro.playlistmaker.databinding.TrackItemBinding
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 
 class TrackViewHolder(
-    itemView: View
-) : RecyclerView.ViewHolder(itemView) {
+    binding: TrackItemBinding
+) : RecyclerView.ViewHolder(binding.root) {
 
-    private val trackName: TextView = itemView.findViewById(R.id.track_name)
-    private val artistName: TextView = itemView.findViewById(R.id.artist_name)
-    private val trackTime: TextView = itemView.findViewById(R.id.track_time)
-    private val trackImage: ImageView = itemView.findViewById(R.id.track_image)
+    private val trackName: TextView = binding.trackName
+    private val artistName: TextView = binding.artistName
+    private val trackTime: TextView = binding.trackTime
+    private val trackImage: ImageView = binding.trackImage
 
     fun bind(
         model: TrackModel

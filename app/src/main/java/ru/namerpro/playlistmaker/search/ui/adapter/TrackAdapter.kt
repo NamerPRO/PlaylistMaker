@@ -1,9 +1,10 @@
-package ru.namerpro.playlistmaker.search.ui.activity
+package ru.namerpro.playlistmaker.search.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.namerpro.playlistmaker.R
+import ru.namerpro.playlistmaker.databinding.TrackItemBinding
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 import ru.namerpro.playlistmaker.search.ui.view_model.TrackViewHolder
 
@@ -16,8 +17,8 @@ class TrackAdapter(
         parent: ViewGroup,
         viewType: Int
     ): TrackViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.track_item, parent, false)
-        return TrackViewHolder(view)
+        val layoutInspector = LayoutInflater.from(parent.context)
+        return TrackViewHolder(TrackItemBinding.inflate(layoutInspector, parent, false))
     }
 
     override fun onBindViewHolder(

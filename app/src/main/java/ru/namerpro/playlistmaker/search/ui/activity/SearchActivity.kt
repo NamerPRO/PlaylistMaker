@@ -21,6 +21,7 @@ import ru.namerpro.playlistmaker.search.ui.activity.state.SearchRenderState
 import ru.namerpro.playlistmaker.search.ui.view_model.SearchViewModel
 import ru.namerpro.playlistmaker.player.ui.activity.PlayerActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.namerpro.playlistmaker.search.ui.adapter.TrackAdapter
 
 class SearchActivity : AppCompatActivity() {
 

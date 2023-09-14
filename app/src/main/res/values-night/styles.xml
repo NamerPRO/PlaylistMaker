@@ -71,7 +71,7 @@
         <item name="android:maxLines">1</item>
     </style>
 
-    <style name="search_exception">
+    <style name="handleable_exception">
         <item name="android:textColor">@color/yp_white</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -82,7 +82,7 @@
         <item name="android:drawablePadding">16sp</item>
     </style>
 
-    <style name="search_reconnect_button_style" parent="@style/Widget.MaterialComponents.Button.UnelevatedButton">
+    <style name="standard_round_button_style" parent="@style/Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:backgroundTint">@color/yp_white</item>
         <item name="android:textColor">@color/yp_black</item>
         <item name="android:textAllCaps">false</item>
@@ -131,5 +131,12 @@
 
     <style name="audio_back_button">
         <item name="tint">@color/yp_white</item>
+    </style>
+
+    <style name="media_tab_layout_tabs">
+        <item name="tabTextAppearance">@style/media_playlist_tabs</item>
+        <item name="tabTextColor">@color/yp_white</item>
+        <item name="tabIndicatorColor">@color/yp_white</item>
+        <item name="tabRippleColor">@color/yp_light_gray</item>
     </style>
 </resources>
