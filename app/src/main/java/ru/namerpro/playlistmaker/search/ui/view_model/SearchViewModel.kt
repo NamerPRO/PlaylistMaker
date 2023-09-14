@@ -7,7 +7,7 @@ import ru.namerpro.playlistmaker.search.domain.api.HistoryInteractor
 import ru.namerpro.playlistmaker.search.domain.api.SharedPreferencesSearchInteractor
 import ru.namerpro.playlistmaker.search.domain.api.TracksInteractor
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
-import ru.namerpro.playlistmaker.search.ui.activity.state.SearchRenderState
+import ru.namerpro.playlistmaker.search.ui.fragments.state.SearchRenderState
 import ru.namerpro.playlistmaker.universal.domain.models.SingleLiveEvent
 
 class SearchViewModel(
@@ -71,7 +71,7 @@ class SearchViewModel(
 
     private val handler = Handler(Looper.getMainLooper())
 
-    override fun onCleared() {
+    fun saveTracks() {
         preferencesSearchInteractor.saveTracks(
             tracks = historyInteractor.getHistory()
         )
