@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.PlaylistMaker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-<!--        <item name="android:background">@color/yp_black</item>-->
         <item name="android:forceDarkAllowed">false</item>
     </style>
 
-    <style name="MainWindowTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:background">@color/yp_black</item>
-        <item name="android:forceDarkAllowed">false</item>
-    </style>
+<!--    <style name="MainWindowTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+<!--        <item name="android:forceDarkAllowed">false</item>-->
+<!--    </style>-->
 </resources>

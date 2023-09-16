@@ -32,7 +32,7 @@
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/medium_text_size</item>
         <item name="android:layout_gravity">start</item>
-        <item name="android:layout_marginStart">64dp</item>
+        <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginTop">14dp</item>
     </style>
 
@@ -145,5 +145,21 @@
         <item name="tabTextColor">@color/yp_black</item>
         <item name="tabIndicatorColor">@color/yp_black</item>
         <item name="tabRippleColor">@color/yp_gray</item>
+        <item name="android:background">@color/yp_white</item>
+    </style>
+
+    <style name="bottom_navigation_view">
+        <item name="itemIconTint">@drawable/bottom_navigation_item_color</item>
+        <item name="itemTextColor">@drawable/bottom_navigation_item_color</item>
+        <item name="android:background">@color/yp_white</item>
+        <item name="itemRippleColor">@color/yp_gray</item>
+    </style>
+
+    <style name="bottom_navigation_view_top_border">
+        <item name="android:background">@color/yp_light_gray</item>
+    </style>
+
+    <style name="standard_activity_style">
+        <item name="android:background">@color/yp_white</item>
     </style>
 </resources>

@@ -33,4 +33,7 @@
     <string name="app_media_menu_name">Медиатека</string>
     <string name="media_favourite_tracks">Избранные треки</string>
     <string name="media_playlists">Плейлисты</string>
+    <string name="bottom_navigation_search">Поиск</string>
+    <string name="bottom_navigation_media">Медиатека</string>
+    <string name="bottom_navigation_settings">Настройки</string>
 </resources>

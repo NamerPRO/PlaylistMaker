@@ -37,7 +37,8 @@ class MediaPlayerRepositoryImpl : MediaPlayerRepository {
         mediaPlayer.setOnCompletionListener {
             listener.onPlayerCompletion()
 
-            mediaPlayer.prepare()
+            mediaPlayer.stop()
+            mediaPlayer.prepareAsync()
             playerState = MediaPlayerState.Prepared
         }
 
