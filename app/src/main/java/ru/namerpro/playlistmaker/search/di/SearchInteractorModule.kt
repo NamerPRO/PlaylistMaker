@@ -8,7 +8,6 @@ import ru.namerpro.playlistmaker.search.domain.api.TracksInteractor
 import ru.namerpro.playlistmaker.search.domain.impl.HistoryInteractorImpl
 import ru.namerpro.playlistmaker.search.domain.impl.SharedPreferencesSearchInteractorImpl
 import ru.namerpro.playlistmaker.search.domain.impl.TracksInteractorImpl
-import java.util.concurrent.Executors
 
 val searchInteractorModule = module {
 
@@ -22,10 +21,6 @@ val searchInteractorModule = module {
 
     factory<TracksInteractor> {
         TracksInteractorImpl(get())
-    }
-
-    factory {
-        Executors.newCachedThreadPool()
     }
 
     single {
