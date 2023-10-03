@@ -91,7 +91,7 @@ class MediaPlayerRepositoryImpl : MediaPlayerRepository {
     }
 
     companion object {
-        const val DELAY = 100L
+        const val DELAY = 300L
     }
 
 }
