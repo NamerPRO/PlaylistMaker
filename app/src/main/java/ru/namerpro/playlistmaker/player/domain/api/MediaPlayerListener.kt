@@ -8,8 +8,6 @@ interface MediaPlayerListener {
 
     fun onPlayerPause()
 
-    fun onPlayerTimerTick()
-
     fun onPlayerPrepared()
 
 }

@@ -1,5 +1,7 @@
 package ru.namerpro.playlistmaker.search.data.network
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import ru.namerpro.playlistmaker.search.data.dto.TracksSearchRequest
 import ru.namerpro.playlistmaker.search.data.dto.TracksSearchResponse
 import ru.namerpro.playlistmaker.search.domain.api.TracksRepository
@@ -13,10 +15,10 @@ class TracksRepositoryImpl(
 
     override fun searchTracks(
         trackName: String
-    ): Pair<List<TrackModel>, Int> {
+    ): Flow<Pair<List<TrackModel>, Int>> = flow {
         val response = networkClient.doRequest(TracksSearchRequest(trackName))
-        return if (response.resultCode == 200) {
-            Pair(
+        if (response.resultCode == 200) {
+            emit(Pair(
                 (response as TracksSearchResponse).results.map {
                 TrackModel(
                     it.trackName ?: "",
@@ -32,9 +34,9 @@ class TracksRepositoryImpl(
                 )
                 },
                 response.resultCode
-            )
+            ))
         } else {
-            Pair(emptyList(), response.resultCode)
+            emit(Pair(emptyList(), response.resultCode))
         }
     }
 

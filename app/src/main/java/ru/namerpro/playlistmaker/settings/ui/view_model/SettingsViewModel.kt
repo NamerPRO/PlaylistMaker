@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import ru.namerpro.playlistmaker.universal.domain.models.SingleLiveEvent
+import ru.namerpro.playlistmaker.utils.SingleLiveEvent
 import ru.namerpro.playlistmaker.settings.domain.api.SharedPreferencesSettingsInteractor
 import ru.namerpro.playlistmaker.settings.domain.api.NavigationInteractor
 import ru.namerpro.playlistmaker.settings.domain.models.EmailModel

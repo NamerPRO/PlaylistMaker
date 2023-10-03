@@ -21,7 +21,7 @@ val searchInteractorModule = module {
     }
 
     factory<TracksInteractor> {
-        TracksInteractorImpl(get(), get())
+        TracksInteractorImpl(get())
     }
 
     factory {

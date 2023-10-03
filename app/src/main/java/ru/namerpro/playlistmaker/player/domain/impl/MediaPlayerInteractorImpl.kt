@@ -18,8 +18,10 @@ class MediaPlayerInteractorImpl(
         mediaPlayerRepository.preparePlayer(previewUrl)
     }
 
-    override fun startPlayer() {
-        mediaPlayerRepository.startPlayer()
+    override fun startPlayer(
+        callCallback: Boolean
+    ) {
+        mediaPlayerRepository.startPlayer(callCallback)
     }
 
     override fun pausePlayer() {
@@ -30,8 +32,8 @@ class MediaPlayerInteractorImpl(
         mediaPlayerRepository.destroyPlayer()
     }
 
-    override fun getRunnable(): Runnable {
-        return mediaPlayerRepository.getRunnable()
+    override fun isPlaying(): Boolean {
+        return mediaPlayerRepository.isPlaying()
     }
 
     override fun getUpdateDelay(): Long {

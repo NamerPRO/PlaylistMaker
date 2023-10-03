@@ -50,11 +50,15 @@ class MediaPlayerRepositoryImpl : MediaPlayerRepository {
         mediaPlayer.prepareAsync()
     }
 
-    override fun startPlayer() {
+    override fun startPlayer(
+        callCallback: Boolean
+    ) {
         mediaPlayer.start()
         playerState = MediaPlayerState.Playing
 
-        listener.onPlayerStart()
+        if (callCallback) {
+            listener.onPlayerStart()
+        }
     }
 
     override fun pausePlayer() {
@@ -68,20 +72,16 @@ class MediaPlayerRepositoryImpl : MediaPlayerRepository {
         mediaPlayer.release()
     }
 
-    override fun getRunnable(): Runnable {
-        return Runnable {
-            if (playerState == MediaPlayerState.Playing) {
-                listener.onPlayerTimerTick()
-            }
-        }
-    }
-
     override fun getCurrentPosition(): Int {
         return mediaPlayer.currentPosition
     }
 
     override fun isPrepared(): Boolean {
         return playerState != MediaPlayerState.Default
+    }
+
+    override fun isPlaying(): Boolean {
+        return mediaPlayer.isPlaying
     }
 
     override fun setListener(
