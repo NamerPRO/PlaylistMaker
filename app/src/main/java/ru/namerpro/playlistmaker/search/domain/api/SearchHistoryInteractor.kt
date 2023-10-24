@@ -2,7 +2,7 @@ package ru.namerpro.playlistmaker.search.domain.api
 
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 
-interface HistoryInteractor {
+interface SearchHistoryInteractor {
 
     fun isHistoryEmpty(): Boolean
 

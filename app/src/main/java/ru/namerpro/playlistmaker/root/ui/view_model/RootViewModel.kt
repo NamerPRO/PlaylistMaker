@@ -3,7 +3,7 @@ package ru.namerpro.playlistmaker.root.ui.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import ru.namerpro.playlistmaker.settings.domain.api.SharedPreferencesSettingsInteractor
-import ru.namerpro.playlistmaker.utils.SingleLiveEvent
+import ru.namerpro.playlistmaker.common.SingleLiveEvent
 
 class RootViewModel(
     preferencesInteractor: SharedPreferencesSettingsInteractor

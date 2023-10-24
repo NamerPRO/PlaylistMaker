@@ -106,9 +106,8 @@
         <item name="android:layout_height">52dp</item>
         <item name="fabCustomSize">52dp</item>
         <item name="elevation">0dp</item>
-        <item name="android:alpha">0.25</item>
         <item name="tint">@color/yp_white</item>
-        <item name="backgroundTint">@color/yp_black</item>
+        <item name="backgroundTint">@color/yp_buttons</item>
         <item name="android:layout_marginTop">54dp</item>
     </style>
 

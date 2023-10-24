@@ -2,7 +2,7 @@ package ru.namerpro.playlistmaker.search.domain.api
 
 import android.content.SharedPreferences
 
-interface SharedPreferencesSearchRepository {
+interface SearchHistorySaveRepository {
 
     fun saveTracks(
         json: String

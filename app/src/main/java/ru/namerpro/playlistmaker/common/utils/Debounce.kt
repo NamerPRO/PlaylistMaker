@@ -1,4 +1,4 @@
-package ru.namerpro.playlistmaker.utils
+package ru.namerpro.playlistmaker.common.utils
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -17,7 +17,7 @@ fun <T> debounce(
         if (useLastParam) {
             debounceJob?.cancel()
         }
-        if (debounceJob?.isCompleted != false || useLastParam) {
+        if (param != null && (debounceJob?.isCompleted != false || useLastParam)) {
             debounceJob = coroutineScope.launch {
                 delay(delayMillis)
                 action(param)

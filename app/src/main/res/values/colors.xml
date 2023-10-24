@@ -11,6 +11,8 @@
     <color name="yp_white">#FFFFFF</color>
     <color name="yp_black">#1A1B22</color>
     <color name="yp_gray">#AEAFB4</color>
+    <color name="yp_red">#F56B6C</color>
+    <color name="yp_buttons">#C5C6C7</color>
     <color name="yp_light_gray">#E6E8EB</color>
     <color name="red">#FF0000</color>
     <color name="transparent">#00000000</color>

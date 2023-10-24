@@ -1,4 +1,4 @@
-package ru.namerpro.playlistmaker.utils
+package ru.namerpro.playlistmaker.common
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData

@@ -4,7 +4,7 @@
     <dimen name="app_settings_menu_text_size">16sp</dimen>
     <dimen name="app_settings_standard_padding">21dp</dimen>
     <dimen name="app_settings_standard_margin_left">12dp</dimen>
-    <dimen name="app_handleable_exception_margin">110sp</dimen>
+    <dimen name="app_handleable_exception_margin">110dp</dimen>
     <dimen name="audio_track_info_margin_top">17dp</dimen>
     <dimen name="media_tab_section_margin">16dp</dimen>
 </resources>

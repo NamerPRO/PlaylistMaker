@@ -1,12 +1,15 @@
 package ru.namerpro.playlistmaker.player.ui.view_model
 
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import kotlinx.coroutines.*
+import ru.namerpro.playlistmaker.common.di.viewModelModule
+import ru.namerpro.playlistmaker.common.domain.api.FavouritesHistoryInteractor
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerInteractor
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerListener
 import ru.namerpro.playlistmaker.player.ui.activity.PlayerUpdateState
@@ -17,7 +20,8 @@ import java.util.*
 
 class PlayerViewModel(
     intent: Intent,
-    private val mediaPlayerInteractor: MediaPlayerInteractor
+    private val mediaPlayerInteractor: MediaPlayerInteractor,
+    private val favouritesHistoryInteractor: FavouritesHistoryInteractor
 ) : ViewModel(), MediaPlayerListener {
 
     init {
@@ -26,6 +30,9 @@ class PlayerViewModel(
 
     private val playerChangeLiveData = MutableLiveData<PlayerUpdateState>(PlayerUpdateState.Default())
     fun observePlayerChange(): LiveData<PlayerUpdateState> = playerChangeLiveData
+
+    private val favouritesChangeLiveData = MutableLiveData<Boolean>()
+    fun observeFavouritesChange(): LiveData<Boolean> = favouritesChangeLiveData
 
     val track: TrackModel = Gson().fromJson(intent.extras!!.getString(SearchViewModel.TRACK_INTENT_KEY), TrackModel::class.java)
 
@@ -36,6 +43,24 @@ class PlayerViewModel(
     fun getCoverArtwork(
         track: TrackModel
     ) = track.artworkUrl100.replaceAfterLast('/',"512x512bb.jpg")
+
+    fun setFavouritesButton() {
+        viewModelScope.launch {
+            favouritesChangeLiveData.postValue(favouritesHistoryInteractor.isTrackFavourite(track.trackId))
+        }
+    }
+
+    fun onFavouriteClicked() {
+        viewModelScope.launch {
+            if (!favouritesHistoryInteractor.isTrackFavourite(track.trackId)) {
+                favouritesHistoryInteractor.addToFavourites(track, System.currentTimeMillis())
+                favouritesChangeLiveData.postValue(true)
+            } else {
+                favouritesHistoryInteractor.deleteFromFavourites(track)
+                favouritesChangeLiveData.postValue(false)
+            }
+        }
+    }
 
     fun startStopPlayer() {
         mediaPlayerInteractor.playBackControl()

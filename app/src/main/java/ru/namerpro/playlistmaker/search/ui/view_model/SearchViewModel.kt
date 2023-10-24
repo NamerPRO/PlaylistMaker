@@ -1,18 +1,18 @@
 package ru.namerpro.playlistmaker.search.ui.view_model
 
 import androidx.lifecycle.*
-import ru.namerpro.playlistmaker.search.domain.api.HistoryInteractor
-import ru.namerpro.playlistmaker.search.domain.api.SharedPreferencesSearchInteractor
+import ru.namerpro.playlistmaker.search.domain.api.SearchHistoryInteractor
+import ru.namerpro.playlistmaker.search.domain.api.SearchHistorySaveInteractor
 import ru.namerpro.playlistmaker.search.domain.api.TracksInteractor
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 import ru.namerpro.playlistmaker.search.ui.fragments.state.SearchRenderState
-import ru.namerpro.playlistmaker.utils.SingleLiveEvent
-import ru.namerpro.playlistmaker.utils.debounce
+import ru.namerpro.playlistmaker.common.SingleLiveEvent
+import ru.namerpro.playlistmaker.common.utils.debounce
 
 class SearchViewModel(
     private val tracksInteractor: TracksInteractor,
-    private val preferencesSearchInteractor: SharedPreferencesSearchInteractor,
-    private val historyInteractor: HistoryInteractor
+    private val preferencesSearchInteractor: SearchHistorySaveInteractor,
+    private val searchHistoryInteractor: SearchHistoryInteractor
 ) : ViewModel() {
 
     companion object {
@@ -29,28 +29,30 @@ class SearchViewModel(
     private val searchAreaFocusLiveData = SingleLiveEvent<Boolean>()
     fun observeSearchAreaFocus(): LiveData<Boolean> = searchAreaFocusLiveData
 
-    val searchDebounce = debounce<String>(
+    val searchDebounce = debounce<String?>(
         delayMillis = SEARCH_DEBOUNCE_DELAY,
         coroutineScope = viewModelScope,
         useLastParam = true
     ) { searchDataValue ->
-        renderStateLiveData.postValue(SearchRenderState.Loading)
-        tracksInteractor.searchTracks(searchDataValue).collect { response ->
-            val foundTracks = response.first
-            val responseCode = response.second
+        if (searchDataValue != null) {
+            renderStateLiveData.postValue(SearchRenderState.Loading)
+            tracksInteractor.searchTracks(searchDataValue).collect { response ->
+                val foundTracks = response.first
+                val responseCode = response.second
 
-            if (responseCode == 200) {
-                if (foundTracks.isNotEmpty()) {
-                    renderStateLiveData.postValue(
-                        SearchRenderState.Success(
-                            tracks = foundTracks
+                if (responseCode == 200) {
+                    if (foundTracks.isNotEmpty()) {
+                        renderStateLiveData.postValue(
+                            SearchRenderState.Success(
+                                tracks = foundTracks
+                            )
                         )
-                    )
+                    } else {
+                        renderStateLiveData.postValue(SearchRenderState.NothingFound)
+                    }
                 } else {
-                    renderStateLiveData.postValue(SearchRenderState.NothingFound)
+                    renderStateLiveData.postValue(SearchRenderState.NoInternet)
                 }
-            } else {
-                renderStateLiveData.postValue(SearchRenderState.NoInternet)
             }
         }
     }
@@ -58,7 +60,7 @@ class SearchViewModel(
     var searchDataValue = ""
 
     init {
-        historyInteractor.getHistory().apply {
+        searchHistoryInteractor.getHistory().apply {
             clear()
             addAll(preferencesSearchInteractor.loadTracks())
         }
@@ -66,7 +68,7 @@ class SearchViewModel(
 
     fun saveTracks() {
         preferencesSearchInteractor.saveTracks(
-            tracks = historyInteractor.getHistory()
+            tracks = searchHistoryInteractor.getHistory()
         )
     }
 
@@ -77,8 +79,15 @@ class SearchViewModel(
     }
 
     fun clearTrackHistoryExecutor() {
-        historyInteractor.clearHistory()
+        searchHistoryInteractor.clearHistory()
         renderStateLiveData.postValue(SearchRenderState.Empty)
+    }
+
+    fun cancelSearch(isLoadingState: Boolean = false) {
+        searchDebounce(null)
+        if (isLoadingState) {
+            renderStateLiveData.postValue(SearchRenderState.Empty)
+        }
     }
 
     fun searchAreaFocusExecutor(
@@ -89,9 +98,11 @@ class SearchViewModel(
             return
         }
 
+        cancelSearch()
+
         searchDataValue = ""
 
-        if (hasFocus && !historyInteractor.isHistoryEmpty()) {
+        if (hasFocus && !searchHistoryInteractor.isHistoryEmpty()) {
             renderStateLiveData.postValue(SearchRenderState.History)
         } else {
             renderStateLiveData.postValue(SearchRenderState.Empty)
@@ -115,7 +126,7 @@ class SearchViewModel(
         renderStateLiveData.postValue(
             SearchRenderState.Search(
                 showClearButton = searchDataValue.isNotEmpty(),
-                showSearchHistory = searchDataValue.isEmpty() && !historyInteractor.isHistoryEmpty()
+                showSearchHistory = searchDataValue.isEmpty() && !searchHistoryInteractor.isHistoryEmpty()
             )
         )
 
@@ -123,13 +134,13 @@ class SearchViewModel(
     }
 
     fun getHistory() : ArrayList<TrackModel> {
-        return historyInteractor.getHistory()
+        return searchHistoryInteractor.getHistory()
     }
 
     fun appendHistory(
         track: TrackModel
     ) {
-        historyInteractor.addTrack(track)
+        searchHistoryInteractor.addTrack(track)
     }
 
 }

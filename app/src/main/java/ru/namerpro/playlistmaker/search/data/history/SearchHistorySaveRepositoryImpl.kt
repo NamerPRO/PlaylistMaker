@@ -1,11 +1,11 @@
-package ru.namerpro.playlistmaker.search.data.shared_preferences
+package ru.namerpro.playlistmaker.search.data.history
 
 import android.content.SharedPreferences
-import ru.namerpro.playlistmaker.search.domain.api.SharedPreferencesSearchRepository
+import ru.namerpro.playlistmaker.search.domain.api.SearchHistorySaveRepository
 
-class SharedPreferencesSearchRepositoryImpl(
+class SearchHistorySaveRepositoryImpl(
     private val sharedPrefs: SharedPreferences
-) : SharedPreferencesSearchRepository {
+) : SearchHistorySaveRepository {
 
     override fun loadTracks(): String {
         val json = sharedPrefs.getString(HISTORY_LIST_KEY, null)

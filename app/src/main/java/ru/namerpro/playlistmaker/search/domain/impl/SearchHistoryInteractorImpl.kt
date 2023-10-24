@@ -1,11 +1,11 @@
 package ru.namerpro.playlistmaker.search.domain.impl
 
-import ru.namerpro.playlistmaker.search.domain.api.HistoryInteractor
+import ru.namerpro.playlistmaker.search.domain.api.SearchHistoryInteractor
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 
-class HistoryInteractorImpl(
+class SearchHistoryInteractorImpl(
     private val trackHistory: ArrayList<TrackModel>
-) : HistoryInteractor {
+) : SearchHistoryInteractor {
 
     override fun isHistoryEmpty(): Boolean {
         return trackHistory.isEmpty()

@@ -5,15 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -24,7 +25,7 @@ import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 import ru.namerpro.playlistmaker.search.ui.fragments.state.SearchRenderState
 import ru.namerpro.playlistmaker.search.ui.adapter.TrackAdapter
 import ru.namerpro.playlistmaker.search.ui.view_model.SearchViewModel
-import ru.namerpro.playlistmaker.utils.debounce
+import ru.namerpro.playlistmaker.common.utils.debounce
 
 class SearchFragment : Fragment() {
 
@@ -97,6 +98,7 @@ class SearchFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        viewModel.cancelSearch(progressBarView.isVisible)
         viewModel.saveTracks()
     }
 
@@ -278,7 +280,7 @@ class SearchFragment : Fragment() {
     }
 
     companion object {
-        private const val CLICK_DEBOUNCE_DELAY = 200L
+        const val CLICK_DEBOUNCE_DELAY = 200L
     }
 
 }
