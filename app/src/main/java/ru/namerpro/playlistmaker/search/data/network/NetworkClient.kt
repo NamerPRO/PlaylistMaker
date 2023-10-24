@@ -4,7 +4,7 @@ import ru.namerpro.playlistmaker.search.data.dto.Response
 
 interface NetworkClient {
 
-    fun doRequest(
+    suspend fun doRequest(
         dto: Any
     ): Response
 

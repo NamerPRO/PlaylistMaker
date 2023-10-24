@@ -54,8 +54,6 @@ class PlayerActivity : AppCompatActivity() {
         audioTrackProgress = binding.audioTrackProgress
         play = binding.audioPlayButton
 
-        play.isEnabled = false
-
         setTrackInfo()
 
         if (!viewModel.isPlayerPrepared) {
@@ -63,14 +61,13 @@ class PlayerActivity : AppCompatActivity() {
             viewModel.isPlayerPrepared = true
         }
 
-        viewModel.observePlayerChange().observe(this) {
-            when (it) {
-                is PlayerUpdateState.Completion -> setPlayerCompletion()
-                is PlayerUpdateState.Start -> setPlayerStart()
-                is PlayerUpdateState.Pause -> setPlayerPause()
-                is PlayerUpdateState.Tick -> setPlayerTimerTick()
-                is PlayerUpdateState.Prepared -> setPlayerPrepared()
+        viewModel.observePlayerChange().observe(this) { playerState ->
+            play.isEnabled = playerState.isPlayButtonEnabled
+            when (playerState) {
+                is PlayerUpdateState.Playing -> play.setImageResource(R.drawable.ic_audio_pause_button)
+                else -> play.setImageResource(R.drawable.ic_audio_play_button)
             }
+            audioTrackProgress.text = playerState.progress
         }
 
         play.setOnClickListener {
@@ -80,10 +77,6 @@ class PlayerActivity : AppCompatActivity() {
         audioBackButton.setOnClickListener {
             finish()
         }
-    }
-
-    private fun setPlayerPrepared() {
-        play.isEnabled = true
     }
 
     private fun setTrackInfo() {
@@ -112,32 +105,9 @@ class PlayerActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         if (viewModel.isPlayerInPreparedState()) {
-            viewModel.startPlayer()
+            viewModel.startPlayer(false)
             viewModel.pausePlayer()
         }
-    }
-
-    private fun setPlayerCompletion() {
-        play.isEnabled = true
-        play.setImageResource(R.drawable.ic_audio_play_button)
-        audioTrackProgress.text = "00:00"
-    }
-
-    private fun setPlayerStart() {
-        play.isEnabled = true
-        play.setImageResource(R.drawable.ic_audio_pause_button)
-        viewModel.updateProgress()
-    }
-
-    private fun setPlayerPause() {
-        play.isEnabled = true
-        play.setImageResource(R.drawable.ic_audio_play_button)
-    }
-
-    private fun setPlayerTimerTick() {
-        play.isEnabled = true
-        audioTrackProgress.text = viewModel.getCurrentTime()
-        viewModel.updateProgress()
     }
 
 }

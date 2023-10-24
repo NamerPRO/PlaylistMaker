@@ -1,12 +1,12 @@
 package ru.namerpro.playlistmaker.player.ui.view_model
 
 import android.content.Intent
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import kotlinx.coroutines.*
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerInteractor
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerListener
 import ru.namerpro.playlistmaker.player.ui.activity.PlayerUpdateState
@@ -24,12 +24,12 @@ class PlayerViewModel(
         mediaPlayerInteractor.setListener(this)
     }
 
-    private val playerChangeLiveData = MutableLiveData<PlayerUpdateState>()
+    private val playerChangeLiveData = MutableLiveData<PlayerUpdateState>(PlayerUpdateState.Default())
     fun observePlayerChange(): LiveData<PlayerUpdateState> = playerChangeLiveData
 
     val track: TrackModel = Gson().fromJson(intent.extras!!.getString(SearchViewModel.TRACK_INTENT_KEY), TrackModel::class.java)
 
-    private val mainThreadHandler = Handler(Looper.getMainLooper())
+    private var playerUpdateTimerJob: Job? = null
 
     var isPlayerPrepared = false
 
@@ -41,8 +41,10 @@ class PlayerViewModel(
         mediaPlayerInteractor.playBackControl()
     }
 
-    fun startPlayer() {
-        mediaPlayerInteractor.startPlayer()
+    fun startPlayer(
+        callCallback: Boolean = true
+    ) {
+        mediaPlayerInteractor.startPlayer(callCallback)
     }
 
     fun pausePlayer() {
@@ -57,8 +59,13 @@ class PlayerViewModel(
         mediaPlayerInteractor.preparePlayer(track.previewUrl)
     }
 
-    fun updateProgress() {
-        mainThreadHandler.postDelayed(mediaPlayerInteractor.getRunnable(), mediaPlayerInteractor.getUpdateDelay())
+    private fun startPlayerTimer() {
+        playerUpdateTimerJob = viewModelScope.launch {
+            while (mediaPlayerInteractor.isPlaying()) {
+                delay(mediaPlayerInteractor.getUpdateDelay())
+                playerChangeLiveData.postValue(PlayerUpdateState.Playing(getCurrentTime()))
+            }
+        }
     }
 
     fun getCurrentTime(): String {
@@ -77,23 +84,20 @@ class PlayerViewModel(
     // Media player listeners
 
     override fun onPlayerCompletion() {
-        playerChangeLiveData.postValue(PlayerUpdateState.Completion)
+        playerUpdateTimerJob?.cancel()
     }
 
     override fun onPlayerStart() {
-        playerChangeLiveData.postValue(PlayerUpdateState.Start)
+        startPlayerTimer()
     }
 
     override fun onPlayerPause() {
-        playerChangeLiveData.postValue(PlayerUpdateState.Pause)
-    }
-
-    override fun onPlayerTimerTick() {
-        playerChangeLiveData.postValue(PlayerUpdateState.Tick)
+        playerUpdateTimerJob?.cancel()
+        playerChangeLiveData.postValue(PlayerUpdateState.Paused(getCurrentTime()))
     }
 
     override fun onPlayerPrepared() {
-        playerChangeLiveData.postValue(PlayerUpdateState.Prepared)
+        playerChangeLiveData.postValue(PlayerUpdateState.Prepared())
     }
 
     // ===

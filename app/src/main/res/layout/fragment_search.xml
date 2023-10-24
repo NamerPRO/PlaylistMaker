@@ -94,44 +94,56 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
+    <ScrollView
         android:id="@+id/nothing_found"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/app_handleable_exception_margin"
         android:visibility="gone">
 
-        <TextView
-            android:text="@string/search_nothing_found"
-            android:drawableTop="@drawable/ic_search_nothing_found"
-            style="@style/handleable_exception"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </FrameLayout>
+            <TextView
+                android:text="@string/search_nothing_found"
+                android:drawableTop="@drawable/ic_search_nothing_found"
+                style="@style/handleable_exception"/>
 
-    <LinearLayout
+        </FrameLayout>
+
+    </ScrollView>
+
+    <ScrollView
         android:id="@+id/no_internet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="@dimen/app_handleable_exception_margin"
         android:visibility="gone">
 
-        <TextView
-            android:text="@string/search_nointernet"
-            android:drawableTop="@drawable/ic_search_nointernet"
-            android:maxWidth="312dp"
-            style="@style/handleable_exception"/>
-
-        <Button
-            android:id="@+id/search_update_content"
-            android:layout_marginTop="24sp"
-            android:text="@string/search_update"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/standard_round_button_style"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:text="@string/search_nointernet"
+                android:drawableTop="@drawable/ic_search_nointernet"
+                android:maxWidth="312dp"
+                style="@style/handleable_exception"/>
+
+            <Button
+                android:id="@+id/search_update_content"
+                android:layout_marginTop="24sp"
+                android:text="@string/search_update"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/standard_round_button_style"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/track_view"

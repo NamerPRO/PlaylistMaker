@@ -8,13 +8,15 @@ interface MediaPlayerRepository {
         previewUrl: String
     )
 
-    fun startPlayer()
+    fun startPlayer(
+        callCallback: Boolean = true
+    )
 
     fun pausePlayer()
 
     fun destroyPlayer()
 
-    fun getRunnable(): Runnable
+    fun isPlaying(): Boolean
 
     fun getUpdateDelay(): Long
 

@@ -1,14 +1,13 @@
 package ru.namerpro.playlistmaker.search.ui.view_model
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.*
 import ru.namerpro.playlistmaker.search.domain.api.HistoryInteractor
 import ru.namerpro.playlistmaker.search.domain.api.SharedPreferencesSearchInteractor
 import ru.namerpro.playlistmaker.search.domain.api.TracksInteractor
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 import ru.namerpro.playlistmaker.search.ui.fragments.state.SearchRenderState
-import ru.namerpro.playlistmaker.universal.domain.models.SingleLiveEvent
+import ru.namerpro.playlistmaker.utils.SingleLiveEvent
+import ru.namerpro.playlistmaker.utils.debounce
 
 class SearchViewModel(
     private val tracksInteractor: TracksInteractor,
@@ -19,7 +18,6 @@ class SearchViewModel(
     companion object {
         const val TRACK_INTENT_KEY = "track_intent_key"
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
-        private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 
     private val renderStateLiveData = MutableLiveData<SearchRenderState>()
@@ -31,14 +29,16 @@ class SearchViewModel(
     private val searchAreaFocusLiveData = SingleLiveEvent<Boolean>()
     fun observeSearchAreaFocus(): LiveData<Boolean> = searchAreaFocusLiveData
 
-    private var isClickAllowed = true
+    val searchDebounce = debounce<String>(
+        delayMillis = SEARCH_DEBOUNCE_DELAY,
+        coroutineScope = viewModelScope,
+        useLastParam = true
+    ) { searchDataValue ->
+        renderStateLiveData.postValue(SearchRenderState.Loading)
+        tracksInteractor.searchTracks(searchDataValue).collect { response ->
+            val foundTracks = response.first
+            val responseCode = response.second
 
-    private val itunesCallback = object : TracksInteractor.TracksCallback {
-
-        override fun handle(
-            foundTracks: List<TrackModel>,
-            responseCode: Int
-        ) {
             if (responseCode == 200) {
                 if (foundTracks.isNotEmpty()) {
                     renderStateLiveData.postValue(
@@ -53,7 +53,6 @@ class SearchViewModel(
                 renderStateLiveData.postValue(SearchRenderState.NoInternet)
             }
         }
-
     }
 
     var searchDataValue = ""
@@ -65,26 +64,10 @@ class SearchViewModel(
         }
     }
 
-    val searchRunnable = Runnable {
-        searchRequest()
-    }
-
-    private val handler = Handler(Looper.getMainLooper())
-
     fun saveTracks() {
         preferencesSearchInteractor.saveTracks(
             tracks = historyInteractor.getHistory()
         )
-    }
-
-    private fun searchRequest() {
-        renderStateLiveData.postValue(SearchRenderState.Loading)
-        tracksInteractor.searchTracks(searchDataValue, itunesCallback)
-    }
-
-    private fun searchDebounce() {
-        handler.removeCallbacks(searchRunnable)
-        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
     }
 
     fun clearTextButtonExecutor() {
@@ -105,8 +88,6 @@ class SearchViewModel(
         if (searchViewText.isNotEmpty()) {
             return
         }
-
-        handler.removeCallbacks(searchRunnable)
 
         searchDataValue = ""
 
@@ -138,16 +119,7 @@ class SearchViewModel(
             )
         )
 
-        searchDebounce()
-    }
-
-    fun clickDebounce() : Boolean {
-        val current = isClickAllowed
-        if (isClickAllowed) {
-            isClickAllowed = false
-            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
-        }
-        return current
+        searchDebounce(searchDataValue)
     }
 
     fun getHistory() : ArrayList<TrackModel> {

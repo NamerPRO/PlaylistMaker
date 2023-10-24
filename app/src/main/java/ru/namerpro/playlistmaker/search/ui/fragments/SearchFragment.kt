@@ -3,8 +3,6 @@ package ru.namerpro.playlistmaker.search.ui.fragments
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -14,6 +12,8 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -24,11 +24,12 @@ import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 import ru.namerpro.playlistmaker.search.ui.fragments.state.SearchRenderState
 import ru.namerpro.playlistmaker.search.ui.adapter.TrackAdapter
 import ru.namerpro.playlistmaker.search.ui.view_model.SearchViewModel
+import ru.namerpro.playlistmaker.utils.debounce
 
 class SearchFragment : Fragment() {
 
     private lateinit var historyView: RecyclerView
-    private lateinit var noInternetLayout: LinearLayout
+    private lateinit var noInternetLayout: ScrollView
     private lateinit var nothingFoundLayout: FrameLayout
     private lateinit var trackView: RecyclerView
     private lateinit var searchAreaView: EditText
@@ -44,7 +45,16 @@ class SearchFragment : Fragment() {
 
     private lateinit var trackAdapter: TrackAdapter
 
-    private val handler = Handler(Looper.getMainLooper())
+    private val clickDebounce = debounce<Pair<TrackModel, Boolean>>(
+        delayMillis = CLICK_DEBOUNCE_DELAY,
+        coroutineScope = lifecycleScope,
+        useLastParam = false
+    ) { trackData ->
+        if (trackData.second) {
+            viewModel.appendHistory(trackData.first)
+        }
+        startAudioActivity(trackData.first)
+    }
 
     private val viewModel: SearchViewModel by viewModel()
 
@@ -91,11 +101,8 @@ class SearchFragment : Fragment() {
     }
 
     private fun initRecyclerViews() {
-        trackAdapter = TrackAdapter(ArrayList()) {
-            if (viewModel.clickDebounce()) {
-                viewModel.appendHistory(it)
-                startAudioActivity(it)
-            }
+        trackAdapter = TrackAdapter(ArrayList()) { track ->
+            clickDebounce(Pair(track, true))
         }
 
         trackView.apply {
@@ -103,10 +110,8 @@ class SearchFragment : Fragment() {
             adapter = trackAdapter
         }
 
-        historyAdapter = TrackAdapter(viewModel.getHistory()) {
-            if (viewModel.clickDebounce()) {
-                startAudioActivity(it)
-            }
+        historyAdapter = TrackAdapter(viewModel.getHistory()) { track ->
+            clickDebounce(Pair(track, false))
         }
 
         historyView.apply {
@@ -155,8 +160,7 @@ class SearchFragment : Fragment() {
         searchAreaView.addTextChangedListener(textWatcher)
 
         updateContentView.setOnClickListener {
-            handler.removeCallbacks(viewModel.searchRunnable)
-            handler.post(viewModel.searchRunnable)
+            viewModel.searchDebounce(viewModel.searchDataValue)
         }
     }
 
@@ -271,6 +275,10 @@ class SearchFragment : Fragment() {
         } else {
             searchAreaView.clearFocus()
         }
+    }
+
+    companion object {
+        private const val CLICK_DEBOUNCE_DELAY = 200L
     }
 
 }

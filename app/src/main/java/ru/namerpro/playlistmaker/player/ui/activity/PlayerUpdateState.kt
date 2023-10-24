@@ -1,15 +1,32 @@
 package ru.namerpro.playlistmaker.player.ui.activity
 
-sealed interface PlayerUpdateState {
+sealed class PlayerUpdateState(
+    val isPlayButtonEnabled: Boolean,
+    val progress: String
+) {
 
-    object Completion : PlayerUpdateState
+    class Default : PlayerUpdateState(
+        isPlayButtonEnabled = false,
+        progress = "00:00"
+    )
 
-    object Start : PlayerUpdateState
+    class Prepared : PlayerUpdateState(
+        isPlayButtonEnabled = true,
+        progress = "00:00"
+    )
 
-    object Pause : PlayerUpdateState
+    class Playing(
+        progress: String
+    ) : PlayerUpdateState(
+        isPlayButtonEnabled = true,
+        progress = progress
+    )
 
-    object Tick : PlayerUpdateState
-
-    object Prepared: PlayerUpdateState
+    class Paused(
+        progress: String
+    ) : PlayerUpdateState(
+        isPlayButtonEnabled = true,
+        progress = progress
+    )
 
 }
