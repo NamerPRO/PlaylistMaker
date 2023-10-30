@@ -1,10 +1,13 @@
 package ru.namerpro.playlistmaker.player.ui.activity
 
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import ru.namerpro.playlistmaker.R
 import ru.namerpro.playlistmaker.databinding.ActivityAudioBinding
@@ -26,6 +29,7 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var audioBackButton: ImageView
     private lateinit var audioTrackProgress: TextView
     private lateinit var audioAlbum: TextView
+    private lateinit var audioFavoriteButton: ImageView
 
     private val viewModel: PlayerViewModel by viewModel {
         parametersOf(intent)
@@ -53,12 +57,27 @@ class PlayerActivity : AppCompatActivity() {
         audioBackButton = binding.audioBackButton
         audioTrackProgress = binding.audioTrackProgress
         play = binding.audioPlayButton
+        audioFavoriteButton = binding.audioFavouriteButton
 
         setTrackInfo()
 
         if (!viewModel.isPlayerPrepared) {
             viewModel.preparePlayer()
             viewModel.isPlayerPrepared = true
+        }
+
+        audioFavoriteButton.setOnClickListener {
+            viewModel.onFavouriteClicked()
+        }
+
+        viewModel.observeFavouritesChange().observe(this) { isFavourite ->
+            if (isFavourite) {
+                audioFavoriteButton.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.yp_red))
+                audioFavoriteButton.setImageResource(R.drawable.ic_audio_favourite_button_clicked)
+            } else {
+                audioFavoriteButton.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.yp_white))
+                audioFavoriteButton.setImageResource(R.drawable.ic_audio_favourite_button)
+            }
         }
 
         viewModel.observePlayerChange().observe(this) { playerState ->
@@ -93,6 +112,8 @@ class PlayerActivity : AppCompatActivity() {
         audioGenre.text = viewModel.track.primaryGenreName
         audioCountry.text = viewModel.track.country
         audioTrackProgress.text = if (viewModel.isPlayerPrepared) viewModel.getCurrentTime() else "0:30"
+
+        viewModel.setFavouritesButton()
 
         if (!viewModel.track.collectionName.isNullOrEmpty()) {
             audioAlbumData.text = viewModel.track.collectionName

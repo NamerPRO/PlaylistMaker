@@ -14,7 +14,8 @@
             android:id="@+id/no_playlists"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/app_handleable_exception_margin">
+            android:layout_marginTop="@dimen/app_handleable_exception_margin"
+            android:visibility="gone">
 
             <TextView
                 android:text="@string/media_no_favourite_tracks"
@@ -22,6 +23,13 @@
                 app:drawableTopCompat="@drawable/ic_search_nothing_found" />
 
         </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favourite_tracks_list"
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
     </FrameLayout>
 
