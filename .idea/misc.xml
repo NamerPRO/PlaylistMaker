@@ -7,17 +7,48 @@
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/bottom_navigation_item_color.xml" value="0.1" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_arrow_right.xml" value="0.1" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_audio_favourite_button_clicked.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_back.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_dev_playlist_recycler_view_stub.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_new_playlist_add_photo.xml" value="0.3635" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_new_playlist_add_photo_with_stroke_border.xml" value="0.1145" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_new_playlist_stroke_borders_of_add_photo_area.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_search.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_search_clear_input.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_search_clear_input_light.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_search_icon.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_search_nointernet.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_search_nothing_found.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_search_search_light.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_separate_dot.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_settings.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_settings_licence_argeement.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_settings_share.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_settings_support.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_swap_line.xml" value="0.134" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/ic_track_no_iternet.xml" value="0.196" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/shape_edittext_focused.xml" value="0.134" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/shape_new_playlist_create_playlist_button.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/shape_new_playlist_stroke_borders_of_add_photo_area.xml" value="0.146" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/shape_round_borders.xml" value="0.22" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/drawable/text_input_form_outline.xml" value="0.1" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_audio.xml" value="0.2" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_media.xml" value="0.1" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_root.xml" value="0.15611814345991562" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_search.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/activity_settings.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/add_to_playlist.xml" value="0.29213483146067415" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/custom_snackbar.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/custom_toast.xml" value="0.2796296296296296" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_favourite_tracks.xml" value="0.1" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_media.xml" value="0.2546875" />
-        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_playlists.xml" value="0.2659846547314578" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_new_playlist.xml" value="0.22865853658536586" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_player.xml" value="0.405320813771518" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_playlists.xml" value="0.33" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_search.xml" value="0.1" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/playlist_in_add_to_playlist_section_item.xml" value="0.33" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/playlist_item.xml" value="0.33" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/track_item.xml" value="0.1" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
       </map>

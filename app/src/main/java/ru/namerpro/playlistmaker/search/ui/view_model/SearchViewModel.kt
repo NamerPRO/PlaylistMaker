@@ -16,7 +16,6 @@ class SearchViewModel(
 ) : ViewModel() {
 
     companion object {
-        const val TRACK_INTENT_KEY = "track_intent_key"
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 

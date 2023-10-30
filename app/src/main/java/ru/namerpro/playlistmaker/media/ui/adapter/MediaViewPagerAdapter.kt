@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import ru.namerpro.playlistmaker.media.ui.fragments.FavouriteTracksFragment
-import ru.namerpro.playlistmaker.media.ui.fragments.PlaylistFragment
+import ru.namerpro.playlistmaker.media.ui.fragments.favourite_tracks.FavouriteTracksFragment
+import ru.namerpro.playlistmaker.media.ui.fragments.playlist.PlaylistFragment
 
 class MediaViewPagerAdapter(
     fragmentManager: FragmentManager,

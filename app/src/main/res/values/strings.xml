@@ -36,4 +36,22 @@
     <string name="bottom_navigation_search">Поиск</string>
     <string name="bottom_navigation_media">Медиатека</string>
     <string name="bottom_navigation_settings">Настройки</string>
+    <string name="new_playlist_fragment_title">Новый плейлист</string>
+    <string name="new_playlist_playlist_title">Название*</string>
+    <string name="new_playlist_playlist_description">Описание</string>
+    <string name="new_playlist_create_playlist_button_text">Создать</string>
+    <plurals name="playlist_item_track_word">
+        <item quantity="zero">%1$d треков</item>
+        <item quantity="one">%1$d трек</item>
+        <item quantity="two">%1$d трека</item>
+        <item quantity="few">%1$d трека</item>
+        <item quantity="many">%1$d треков</item>
+        <item quantity="other">%1$d треков</item>
+    </plurals>
+    <string name="new_playlist_create_playlist_was_successfully_created">Плейлист %1$s создан</string>
+    <string name="new_playlist_create_playlist_failed_to_create">Добавление невозможно!\nПлейлист с таким заголовком уже существует</string>
+    <string name="add_to_playlist_title">Добавить в плейлист</string>
+    <string name="add_to_playlist_button_create_playlist_text">Новый плейлист</string>
+    <string name="add_to_playlist_successfully_added_track">Добавлено в плейлист %1$s</string>
+    <string name="add_to_playlist_failed_due_to_already_exists">Трек уже добавлен в плейлист %1s</string>
 </resources>

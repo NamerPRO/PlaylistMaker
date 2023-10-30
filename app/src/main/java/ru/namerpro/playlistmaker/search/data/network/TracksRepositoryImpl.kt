@@ -2,7 +2,7 @@ package ru.namerpro.playlistmaker.search.data.network
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.namerpro.playlistmaker.common.data.db.PlaylistApplicationDatabase
+import ru.namerpro.playlistmaker.common.data.db.FavouriteTracksDatabase
 import ru.namerpro.playlistmaker.search.data.dto.TracksSearchRequest
 import ru.namerpro.playlistmaker.search.data.dto.TracksSearchResponse
 import ru.namerpro.playlistmaker.search.domain.api.TracksRepository
@@ -11,8 +11,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class TracksRepositoryImpl(
-    private val networkClient: NetworkClient,
-    private val playlistApplicationDatabase: PlaylistApplicationDatabase
+    private val networkClient: NetworkClient
 ) : TracksRepository {
 
     override fun searchTracks(

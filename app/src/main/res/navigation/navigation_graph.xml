@@ -9,15 +9,56 @@
         android:id="@+id/mediaFragment"
         android:name="ru.namerpro.playlistmaker.media.ui.fragments.MediaFragment"
         android:label="fragment_media"
-        tools:layout="@layout/fragment_media" />
+        tools:layout="@layout/fragment_media" >
+        <action
+            android:id="@+id/action_mediaFragment_to_createPlaylistFragment2"
+            app:destination="@id/createPlaylistFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/slide_wait"
+            app:popEnterAnim="@anim/slide_wait"
+            app:popExitAnim="@anim/slide_right" />
+        <action
+            android:id="@+id/action_mediaFragment_to_playerFragment"
+            app:destination="@id/playerFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/slide_wait"
+            app:popEnterAnim="@anim/slide_wait"
+            app:popExitAnim="@anim/slide_right" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="ru.namerpro.playlistmaker.search.ui.fragments.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_playerFragment"
+            app:destination="@id/playerFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/slide_wait"
+            app:popEnterAnim="@anim/slide_wait"
+            app:popExitAnim="@anim/slide_right" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.namerpro.playlistmaker.settings.ui.fragments.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/createPlaylistFragment"
+        android:name="ru.namerpro.playlistmaker.media.ui.fragments.playlist.CreatePlaylistFragment"
+        android:label="fragment_new_playlist"
+        tools:layout="@layout/fragment_new_playlist" />
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="ru.namerpro.playlistmaker.player.ui.fragment.PlayerFragment"
+        android:label="fragment_player"
+        tools:layout="@layout/fragment_player" >
+        <action
+            android:id="@+id/action_playerFragment_to_createPlaylistFragment"
+            app:destination="@id/createPlaylistFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/slide_wait"
+            app:popEnterAnim="@anim/slide_wait"
+            app:popExitAnim="@anim/slide_right"/>
+    </fragment>
 </navigation>

@@ -1,38 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="ru.namerpro.playlistmaker.media.ui.fragments.PlaylistFragment"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    tools:context="ru.namerpro.playlistmaker.media.ui.fragments.playlist.PlaylistFragment">
 
-    <FrameLayout
+    <Button
+        android:id="@+id/playlists_create"
+        android:layout_marginTop="24dp"
+        android:text="@string/media_add_new_playlist"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/standard_round_button_style"/>
+
+    <ScrollView
+        android:id="@+id/no_playlists"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/no_playlists"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="vertical">
+        <TextView
+            android:id="@+id/no_playlists_created"
+            android:text="@string/media_no_playlists"
+            android:layout_gravity="center | top"
+            android:layout_marginTop="50dp"
+            style="@style/handleable_exception"
+            app:drawableTopCompat="@drawable/ic_search_nothing_found"/>
 
-            <Button
-                android:id="@+id/search_update_content"
-                android:layout_marginBottom="50dp"
-                android:text="@string/media_add_new_playlist"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/standard_round_button_style"/>
+    </ScrollView>
 
-            <TextView
-                android:text="@string/media_no_playlists"
-                style="@style/handleable_exception"
-                app:drawableTopCompat="@drawable/ic_search_nothing_found" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playlists_list"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="gone"/>
 
-        </LinearLayout>
-
-    </FrameLayout>
-
-</ScrollView>
+</LinearLayout>

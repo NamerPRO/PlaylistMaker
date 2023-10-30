@@ -3,10 +3,9 @@ package ru.namerpro.playlistmaker.search.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.namerpro.playlistmaker.R
 import ru.namerpro.playlistmaker.databinding.TrackItemBinding
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
-import ru.namerpro.playlistmaker.search.ui.view_model.TrackViewHolder
+import ru.namerpro.playlistmaker.search.ui.view_holder.TrackViewHolder
 
 class TrackAdapter(
     val tracks: ArrayList<TrackModel>,
