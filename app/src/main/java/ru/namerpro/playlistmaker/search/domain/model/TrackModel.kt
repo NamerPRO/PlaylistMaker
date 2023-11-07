@@ -6,7 +6,7 @@ data class TrackModel(
     val previewUrl: String,
     val trackTimeInFormat: String,
     val artworkUrl100: String,
-    val trackId: Long,
+    var trackId: Long,
     val collectionName: String?,
     val releaseDate: String,
     val primaryGenreName: String,

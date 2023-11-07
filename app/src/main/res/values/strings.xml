@@ -54,4 +54,42 @@
     <string name="add_to_playlist_button_create_playlist_text">Новый плейлист</string>
     <string name="add_to_playlist_successfully_added_track">Добавлено в плейлист %1$s</string>
     <string name="add_to_playlist_failed_due_to_already_exists">Трек уже добавлен в плейлист %1s</string>
+    <plurals name="playlist_playlist_information_time">
+        <item quantity="zero">%1$d минут •</item>
+        <item quantity="one">%1$d минута •</item>
+        <item quantity="two">%1$d минуты •</item>
+        <item quantity="few">%1$d минуты •</item>
+        <item quantity="many">%1$d минут •</item>
+        <item quantity="other">%1$d минут •</item>
+    </plurals>
+    <plurals name="playlist_playlist_information_tracks_count">
+        <item quantity="zero">\u0020%1$d треков</item>
+        <item quantity="one">\u0020%1$d трек</item>
+        <item quantity="two">\u0020%1$d трека</item>
+        <item quantity="few">\u0020%1$d трека</item>
+        <item quantity="many">\u0020%1$d треков</item>
+        <item quantity="other">\u0020%1$d треков</item>
+    </plurals>
+    <string name="playlist_no_tracks_in_playlist_info">В этом плейлисте пока нет треков!\nДобавьте треки в плейлист и они появятся здесь</string>
+    <string name="playlist_delete_playlist_from_list">Хотите удалить трек?</string>
+    <string name="dialog_yes_button">Да</string>
+    <string name="dialog_no_button">Нет</string>
+    <string name="no_tracks_in_playlist_to_share_button">В этом плейлисте нет списка треков, которым можно поделиться</string>
+    <string name="dialog_ok_button">Ок</string>
+    <string name="dialog_finish_playlist_create_title">Завершить создание плейлиста?</string>
+    <string name="dialog_finish_playlist_create_warning">Все несохраненные данные будут удалены.</string>
+    <string name="dialog_cancel_button">Отмена</string>
+    <string name="dialog_finish_button">Завершить</string>
+    <string name="playlist_share_playlist_title">Плейлист</string>
+    <string name="playlist_share_playlist_description">Описание</string>
+    <string name="playlist_share_subject">Плейлист %1$s | Поделиться</string>
+    <string name="playlist_share_empty_playlist_title">Плейлист пустой</string>
+    <string name="playlist_extra_settings_share_playlist">Поделиться</string>
+    <string name="playlist_extra_settings_edit_playlist">Редактировать информацию</string>
+    <string name="playlist_extra_settings_delete_playlist">Удалить плейлист</string>
+    <string name="playlist_extra_settings_playlist_delete_confirmation">Хотите удалить плейлист «%1$s»?</string>
+    <string name="playlist_create_playlist_edit">Редактировать</string>
+    <string name="new_playlist_edit_playlist_button_text">Сохранить</string>
+    <string name="edit_playlist_edit_failed_because_another_playlist_with_same_name_exists">Невозможно сохранить изменения!\nУказанный заголовок плейлиста не является уникальным</string>
+    <string name="playlist_delete_playlist_alert_title">Вы уверены, что хотите удалить этот плейлист?</string>
 </resources>

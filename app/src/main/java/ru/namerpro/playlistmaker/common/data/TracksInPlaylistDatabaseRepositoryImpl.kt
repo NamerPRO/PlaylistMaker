@@ -23,6 +23,18 @@ class TracksInPlaylistDatabaseRepositoryImpl(
         return tracksInPlaylistDatabase.getTracksInPlaylistDao().isInTrackInPlaylistStorage(trackId) == HAS_TRACK
     }
 
+    override suspend fun getTrackFromStorage(
+        trackId: Long
+    ): TrackModel {
+        return trackInPlaylistDbConvertor.map(tracksInPlaylistDatabase.getTracksInPlaylistDao().getTrackFromStorage(trackId))
+    }
+
+    override suspend fun deleteTrackFromStorage(
+        track: TrackModel
+    ) {
+        tracksInPlaylistDatabase.getTracksInPlaylistDao().deleteTrackFromStorage(trackInPlaylistDbConvertor.map(track, 0))
+    }
+
     companion object {
         private const val HAS_TRACK = 1
     }

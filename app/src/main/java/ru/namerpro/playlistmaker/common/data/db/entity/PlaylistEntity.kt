@@ -8,7 +8,8 @@ import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 data class PlaylistEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    val cover: String?,
+    val coverFull: String?,
+    val coverCut: String?,
     val title: String,
     val description: String?,
     val addTime: Long,

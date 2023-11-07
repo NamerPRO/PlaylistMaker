@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    tools:context="ru.namerpro.playlistmaker.media.ui.fragments.playlist.PlaylistFragment">
+    tools:context="ru.namerpro.playlistmaker.media.ui.fragments.playlist.PlaylistsFragment">
 
     <Button
         android:id="@+id/playlists_create"

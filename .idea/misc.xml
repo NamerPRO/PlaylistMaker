@@ -42,14 +42,15 @@
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/custom_toast.xml" value="0.2796296296296296" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_favourite_tracks.xml" value="0.1" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_media.xml" value="0.2546875" />
-        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_new_playlist.xml" value="0.22865853658536586" />
-        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_player.xml" value="0.405320813771518" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_new_playlist.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_player.xml" value="0.2288329519450801" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_playlist.xml" value="0.2843016069221261" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_playlists.xml" value="0.33" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_search.xml" value="0.1" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
-        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/playlist_in_add_to_playlist_section_item.xml" value="0.33" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/playlist_in_add_to_playlist_section_item.xml" value="0.1" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/playlist_item.xml" value="0.33" />
-        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/track_item.xml" value="0.1" />
+        <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/layout/track_item.xml" value="0.1644640234948605" />
         <entry key="..\:/Users/AP-3a/AndroidStudioProjects/PlaylistMaker/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
       </map>
     </option>

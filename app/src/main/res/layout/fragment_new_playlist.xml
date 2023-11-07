@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="ru.namerpro.playlistmaker.media.ui.fragments.playlist.CreatePlaylistFragment"
+    tools:context="ru.namerpro.playlistmaker.playlist_modification.ui.fragments.create_playlist.CreatePlaylistFragment"
     style="@style/standard_fragment_style">
 
     <LinearLayout
@@ -25,9 +25,10 @@
                 android:layout_height="@dimen/back_button_height"
                 android:src="@drawable/ic_back"
                 android:background="@color/transparent"
-                style="@style/audio_back_button"/>
+                style="@style/back_button"/>
 
             <TextView
+                android:id="@+id/playlist_create_or_edit_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/fragment_title_padding_left"
@@ -46,9 +47,9 @@
             app:cardBackgroundColor="@color/transparent">
 
             <ImageView
+                android:id="@+id/new_playlist_select_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/new_playlist_select_cover"
                 android:src="@drawable/ic_new_playlist_add_photo"
                 android:background="@drawable/shape_new_playlist_stroke_borders_of_add_photo_area"
                 android:scaleType="centerInside"/>

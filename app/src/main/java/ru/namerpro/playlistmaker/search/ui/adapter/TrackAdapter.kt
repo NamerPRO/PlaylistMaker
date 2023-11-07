@@ -9,7 +9,7 @@ import ru.namerpro.playlistmaker.search.ui.view_holder.TrackViewHolder
 
 class TrackAdapter(
     val tracks: ArrayList<TrackModel>,
-    private val itemClickListener: ((TrackModel) -> Unit)
+    private val itemClickListener: ((TrackModel, Boolean) -> Unit)
 ) : RecyclerView.Adapter<TrackViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -27,7 +27,11 @@ class TrackAdapter(
         val track = tracks[position]
         holder.bind(track)
         holder.itemView.setOnClickListener {
-            itemClickListener.invoke(track)
+            itemClickListener.invoke(track, false)
+        }
+        holder.itemView.setOnLongClickListener {
+            itemClickListener.invoke(track, true)
+            false
         }
     }
 

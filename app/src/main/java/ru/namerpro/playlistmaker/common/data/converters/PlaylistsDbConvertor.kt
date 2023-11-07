@@ -9,8 +9,9 @@ class PlaylistsDbConvertor {
         playlist: PlaylistModel
     ): PlaylistEntity {
         return PlaylistEntity(
-            0,
-            playlist.cover,
+            playlist.id,
+            playlist.coverFull,
+            playlist.coverCut,
             playlist.title,
             playlist.description,
             playlist.time,
@@ -22,9 +23,11 @@ class PlaylistsDbConvertor {
         playlist: PlaylistEntity
     ): PlaylistModel {
         return PlaylistModel(
+            playlist.id,
             playlist.title,
             playlist.description,
-            playlist.cover,
+            playlist.coverFull,
+            playlist.coverCut,
             playlist.addTime,
             playlist.tracksIds
         )

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -72,7 +73,7 @@ class PlayerViewModel(
             if (!tracksInPlaylistDatabaseInteractor.isInTrackInPlaylistStorage(track.trackId)) {
                 tracksInPlaylistDatabaseInteractor.addToTrackInPlaylistStorage(track, System.currentTimeMillis())
             }
-            playlistsDatabaseInteractor.addTrackToPlaylist(playlistTitle, tracksIds)
+            playlistsDatabaseInteractor.updateTracksInPlaylist(playlistTitle, tracksIds)
         }
     }
 
@@ -152,13 +153,5 @@ class PlayerViewModel(
     }
 
     // ===
-
-    companion object {
-        const val ARGS_TRACK = "args_track"
-
-        fun createArgs(track: String): Bundle {
-            return bundleOf(ARGS_TRACK to track)
-        }
-    }
 
 }

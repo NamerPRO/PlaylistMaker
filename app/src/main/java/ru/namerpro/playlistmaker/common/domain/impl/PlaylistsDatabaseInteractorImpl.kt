@@ -35,11 +35,23 @@ class PlaylistsDatabaseInteractorImpl(
         return playlistsDatabaseRepository.hasPlaylist(playlistTitle)
     }
 
-    override suspend fun addTrackToPlaylist(
+    override suspend fun updateTracksInPlaylist(
         playlistTitle: String,
         tracksInPlaylistIds: ArrayList<Long>
     ) {
-        playlistsDatabaseRepository.addTrackIdToPlaylist(playlistTitle, tracksInPlaylistIds)
+        playlistsDatabaseRepository.updateTracksInPlaylist(playlistTitle, tracksInPlaylistIds)
+    }
+
+    override suspend fun updatePlaylist(
+        playlist: PlaylistModel
+    ) {
+        playlistsDatabaseRepository.updatePlaylist(playlist)
+    }
+
+    override suspend fun trackExistsInAnyOfPlaylists(
+        trackId: Long
+    ): Boolean {
+        return playlistsDatabaseRepository.trackExistsInAnyOfPlaylists(trackId)
     }
 
 }

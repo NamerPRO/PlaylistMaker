@@ -13,4 +13,12 @@ interface TracksInPlaylistDatabaseRepository {
         trackId: Long
     ): Boolean
 
+    suspend fun getTrackFromStorage(
+        trackId: Long
+    ): TrackModel
+
+    suspend fun deleteTrackFromStorage(
+        track: TrackModel
+    )
+
 }
