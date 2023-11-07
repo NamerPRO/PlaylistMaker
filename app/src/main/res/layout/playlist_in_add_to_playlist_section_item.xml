@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    style="@style/playlist_in_add_to_playlist_section_item_appearance">
+
+    <ImageView
+        android:id="@+id/playlist_cover"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/track_img"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="53dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/playlist_title"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginRight="44dp"
+            android:singleLine="true"
+            tools:text="Here Comes The Sun (Remastered 2008)"
+            style="@style/track_name"/>
+
+        <TextView
+            android:id="@+id/playlist_tracks_count"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingRight="5dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            style="@style/track_sub_information"
+            tools:text="10 треков"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

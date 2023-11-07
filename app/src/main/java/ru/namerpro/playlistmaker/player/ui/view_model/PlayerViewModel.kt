@@ -1,27 +1,33 @@
 package ru.namerpro.playlistmaker.player.ui.view_model
 
-import android.content.Intent
-import android.util.Log
+import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
-import kotlinx.coroutines.*
-import ru.namerpro.playlistmaker.common.di.viewModelModule
-import ru.namerpro.playlistmaker.common.domain.api.FavouritesHistoryInteractor
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import ru.namerpro.playlistmaker.common.domain.api.FavouritesDatabaseInteractor
+import ru.namerpro.playlistmaker.common.domain.api.PlaylistsDatabaseInteractor
+import ru.namerpro.playlistmaker.common.domain.api.TracksInPlaylistDatabaseInteractor
+import ru.namerpro.playlistmaker.media.domain.models.PlaylistModel
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerInteractor
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerListener
-import ru.namerpro.playlistmaker.player.ui.activity.PlayerUpdateState
+import ru.namerpro.playlistmaker.player.ui.fragment.state.AddToPlaylistState
+import ru.namerpro.playlistmaker.player.ui.fragment.state.PlayerUpdateState
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
-import ru.namerpro.playlistmaker.search.ui.view_model.SearchViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class PlayerViewModel(
-    intent: Intent,
+    val track: TrackModel,
     private val mediaPlayerInteractor: MediaPlayerInteractor,
-    private val favouritesHistoryInteractor: FavouritesHistoryInteractor
+    private val favouritesDatabaseInteractor: FavouritesDatabaseInteractor,
+    private val playlistsDatabaseInteractor: PlaylistsDatabaseInteractor,
+    private val tracksInPlaylistDatabaseInteractor: TracksInPlaylistDatabaseInteractor
 ) : ViewModel(), MediaPlayerListener {
 
     init {
@@ -34,7 +40,8 @@ class PlayerViewModel(
     private val favouritesChangeLiveData = MutableLiveData<Boolean>()
     fun observeFavouritesChange(): LiveData<Boolean> = favouritesChangeLiveData
 
-    val track: TrackModel = Gson().fromJson(intent.extras!!.getString(SearchViewModel.TRACK_INTENT_KEY), TrackModel::class.java)
+    private val addToPlaylistLiveData = MutableLiveData<AddToPlaylistState>()
+    fun observerAddToPlaylistLiveDate(): LiveData<AddToPlaylistState> = addToPlaylistLiveData
 
     private var playerUpdateTimerJob: Job? = null
 
@@ -46,17 +53,36 @@ class PlayerViewModel(
 
     fun setFavouritesButton() {
         viewModelScope.launch {
-            favouritesChangeLiveData.postValue(favouritesHistoryInteractor.isTrackFavourite(track.trackId))
+            favouritesChangeLiveData.postValue(favouritesDatabaseInteractor.isTrackFavourite(track.trackId))
+        }
+    }
+
+    fun onAddToPlaylistClick() {
+        viewModelScope.launch {
+            val playlists = playlistsDatabaseInteractor.getPlaylist()
+            addToPlaylistLiveData.postValue(AddToPlaylistState.WithPlaylists(playlists))
+        }
+    }
+
+    fun addTrackToPlaylist(
+        playlistTitle: String,
+        tracksIds: ArrayList<Long>
+    ) {
+        viewModelScope.launch {
+            if (!tracksInPlaylistDatabaseInteractor.isInTrackInPlaylistStorage(track.trackId)) {
+                tracksInPlaylistDatabaseInteractor.addToTrackInPlaylistStorage(track, System.currentTimeMillis())
+            }
+            playlistsDatabaseInteractor.addTrackToPlaylist(playlistTitle, tracksIds)
         }
     }
 
     fun onFavouriteClicked() {
         viewModelScope.launch {
-            if (!favouritesHistoryInteractor.isTrackFavourite(track.trackId)) {
-                favouritesHistoryInteractor.addToFavourites(track, System.currentTimeMillis())
+            if (!favouritesDatabaseInteractor.isTrackFavourite(track.trackId)) {
+                favouritesDatabaseInteractor.addToFavourites(track, System.currentTimeMillis())
                 favouritesChangeLiveData.postValue(true)
             } else {
-                favouritesHistoryInteractor.deleteFromFavourites(track)
+                favouritesDatabaseInteractor.deleteFromFavourites(track)
                 favouritesChangeLiveData.postValue(false)
             }
         }
@@ -126,5 +152,13 @@ class PlayerViewModel(
     }
 
     // ===
+
+    companion object {
+        const val ARGS_TRACK = "args_track"
+
+        fun createArgs(track: String): Bundle {
+            return bundleOf(ARGS_TRACK to track)
+        }
+    }
 
 }
