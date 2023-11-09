@@ -1,7 +1,6 @@
 package ru.namerpro.playlistmaker.media.ui.fragments.favourite_tracks
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,19 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
-import ru.namerpro.playlistmaker.databinding.FragmentFavouriteTracksBinding
-import ru.namerpro.playlistmaker.media.ui.fragments.favourite_tracks.view_model.FavouriteTracksFragmentViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.namerpro.playlistmaker.R
 import ru.namerpro.playlistmaker.common.utils.debounce
+import ru.namerpro.playlistmaker.databinding.FragmentFavouriteTracksBinding
 import ru.namerpro.playlistmaker.media.ui.fragments.favourite_tracks.state.FavouritesState
+import ru.namerpro.playlistmaker.media.ui.fragments.favourite_tracks.view_model.FavouriteTracksFragmentViewModel
 import ru.namerpro.playlistmaker.player.ui.fragment.PlayerFragment
-import ru.namerpro.playlistmaker.player.ui.view_model.PlayerViewModel
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 import ru.namerpro.playlistmaker.search.ui.adapter.TrackAdapter
-import ru.namerpro.playlistmaker.search.ui.fragments.SearchFragment
-import ru.namerpro.playlistmaker.search.ui.view_model.SearchViewModel
+import ru.namerpro.playlistmaker.search.ui.fragment.SearchFragment
 
 class FavouriteTracksFragment : Fragment() {
 
@@ -39,7 +35,7 @@ class FavouriteTracksFragment : Fragment() {
     ) { track ->
         findNavController().navigate(
             R.id.action_mediaFragment_to_playerFragment,
-            PlayerViewModel.createArgs(Gson().toJson(track))
+            PlayerFragment.createArgs(track)
         )
     }
 
@@ -66,8 +62,10 @@ class FavouriteTracksFragment : Fragment() {
             }
         }
 
-        trackAdapter = TrackAdapter(ArrayList()) { track ->
-            clickDebounce(track)
+        trackAdapter = TrackAdapter(ArrayList()) { track, isClickLong ->
+            if (!isClickLong) {
+                clickDebounce(track)
+            }
         }
 
         binding.favouriteTracksList.apply {

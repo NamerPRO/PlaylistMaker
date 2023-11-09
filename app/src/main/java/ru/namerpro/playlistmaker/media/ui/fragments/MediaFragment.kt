@@ -40,6 +40,8 @@ class MediaFragment : Fragment() {
             }
         }
 
+        binding.viewPager.offscreenPageLimit = 2
+
         tabMediator.attach()
     }
 

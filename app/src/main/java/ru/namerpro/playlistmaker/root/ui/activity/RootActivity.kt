@@ -45,7 +45,9 @@ class RootActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
+                R.id.playlistFragment,
                 R.id.createPlaylistFragment,
+                R.id.editPlaylistFragment,
                 R.id.playerFragment -> {
                     window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
                     binding?.bottomNavigationViewTopBorder?.isVisible = false

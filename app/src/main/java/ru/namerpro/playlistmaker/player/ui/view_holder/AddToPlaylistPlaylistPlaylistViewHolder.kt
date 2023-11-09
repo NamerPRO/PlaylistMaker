@@ -16,10 +16,10 @@ class AddToPlaylistPlaylistPlaylistViewHolder(
     fun bind(
         playlistItem: PlaylistModel
     ) {
-        if (playlistItem.cover == null) {
+        if (playlistItem.coverCut == null) {
             binding.playlistCover.setImageResource(R.drawable.ic_load_failed_stub)
         } else {
-            binding.playlistCover.setImageURI(Uri.fromFile(File(playlistItem.cover)))
+            binding.playlistCover.setImageURI(Uri.fromFile(File(playlistItem.coverCut)))
         }
         binding.playlistTitle.text = playlistItem.title
         binding.playlistTracksCount.text = context.resources.getQuantityString(R.plurals.playlist_item_track_word, playlistItem.tracksIds.size, playlistItem.tracksIds.size)

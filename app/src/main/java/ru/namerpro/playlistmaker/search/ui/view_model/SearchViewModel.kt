@@ -5,7 +5,7 @@ import ru.namerpro.playlistmaker.search.domain.api.SearchHistoryInteractor
 import ru.namerpro.playlistmaker.search.domain.api.SearchHistorySaveInteractor
 import ru.namerpro.playlistmaker.search.domain.api.TracksInteractor
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
-import ru.namerpro.playlistmaker.search.ui.fragments.state.SearchRenderState
+import ru.namerpro.playlistmaker.search.ui.fragment.state.SearchRenderState
 import ru.namerpro.playlistmaker.common.SingleLiveEvent
 import ru.namerpro.playlistmaker.common.utils.debounce
 

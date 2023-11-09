@@ -132,7 +132,11 @@
         <item name="android:textColor">@color/yp_black</item>
     </style>
 
-    <style name="audio_back_button">
+    <style name="back_button">
+        <item name="tint">@color/yp_black</item>
+    </style>
+
+    <style name="playlist_back_button">
         <item name="tint">@color/yp_black</item>
     </style>
 
@@ -171,6 +175,7 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/yp_black</item>
         <item name="android:paddingStart">15dp</item>
+        <item name="android:singleLine">true</item>
     </style>
 
     <style name="new_playlist_playlist_textinput_appearance" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -198,7 +203,7 @@
         <item name="android:textColor">@color/yp_black</item>
     </style>
 
-    <style name="playlist_item_track_title" parent="playlist_item_track_base_information">
+    <style name="marquee_scrolling_behaviour">
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:marqueeRepeatLimit">marquee_forever</item>
@@ -206,6 +211,11 @@
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:freezesText">true</item>
+    </style>
+
+    <style name="playlist_item_track_title" parent="marquee_scrolling_behaviour">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/yp_black</item>
     </style>
 
     <style name="custom_toast_content_appearance">
@@ -247,6 +257,84 @@
 
     <style name="add_to_playlist_bottom_sheet_slider">
         <item name="tint">@color/yp_light_gray</item>
+    </style>
+
+    <style name="playlist_playlist_title_appearance" parent="marquee_scrolling_behaviour">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:textColor">@color/yp_black</item>
+    </style>
+
+    <style name="playlist_playlist_information_appearance" parent="marquee_scrolling_behaviour">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/yp_black</item>
+    </style>
+
+    <style name="playlist_no_tracks_in_playlist_appearance">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/yp_black</item>
+    </style>
+
+    <style name="playlist_extra_settings_tabs_appearance">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingTop">21dp</item>
+        <item name="android:paddingBottom">21dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textColor">@color/yp_black</item>
+    </style>
+
+    <style name="playlist_extra_settings_menu_appearance">
+        <item name="android:clickable">true</item>
+        <item name="behavior_hideable">true</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardBackgroundColor">@color/yp_white</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="android:layout_marginBottom">-16dp</item>
+    </style>
+
+    <style name="playlist_tracks_selection_menu_appearance">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardBackgroundColor">@color/yp_white</item>
+    </style>
+    
+    <style name="alert_theme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/white</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/alert_title_appearance</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/alert_body_appearance</item>
+        <item name="buttonBarNegativeButtonStyle">@style/negative_button_appearance</item>
+        <item name="buttonBarPositiveButtonStyle">@style/positive_button_appearance</item>
+        <item name="buttonBarNeutralButtonStyle">@style/neutral_button_appearance</item>
+    </style>
+
+    <style name="alert_body_appearance" parent="@style/MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textColor">@color/yp_black</item>
+    </style>
+
+    <style name="alert_title_appearance" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/yp_black</item>
+    </style>
+
+    <style name="negative_button_appearance" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/yp_blue</item>
+    </style>
+
+    <style name="positive_button_appearance" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/yp_blue</item>
+    </style>
+
+    <style name="neutral_button_appearance" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/yp_blue</item>
     </style>
 
 </resources>

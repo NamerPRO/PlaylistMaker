@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -25,6 +26,7 @@ import org.koin.core.parameter.parametersOf
 import ru.namerpro.playlistmaker.R
 import ru.namerpro.playlistmaker.common.utils.showToast
 import ru.namerpro.playlistmaker.databinding.FragmentPlayerBinding
+import ru.namerpro.playlistmaker.playlist_modification.ui.fragments.create_playlist.CreatePlaylistFragment
 import ru.namerpro.playlistmaker.player.ui.adapter.AddToPlaylistPlaylistAdapter
 import ru.namerpro.playlistmaker.player.ui.fragment.state.AddToPlaylistState
 import ru.namerpro.playlistmaker.player.ui.fragment.state.PlayerUpdateState
@@ -53,7 +55,7 @@ class PlayerFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<CardView>
 
     private val viewModel: PlayerViewModel by viewModel {
-        parametersOf(Gson().fromJson(requireArguments().getString(PlayerViewModel.ARGS_TRACK), object : TypeToken<TrackModel>() {}.type))
+        parametersOf(Gson().fromJson(requireArguments().getString(ARGS_TRACK), object : TypeToken<TrackModel>() {}.type))
     }
 
     private lateinit var binding: FragmentPlayerBinding
@@ -199,7 +201,9 @@ class PlayerFragment : Fragment() {
 
         addToPlaylistButton.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            findNavController().navigate(R.id.action_playerFragment_to_createPlaylistFragment)
+            findNavController().navigate(
+                R.id.action_playerFragment_to_createPlaylistFragment
+            )
         }
     }
 
@@ -223,8 +227,6 @@ class PlayerFragment : Fragment() {
             }
         }
     }
-
-
 
     private fun setTrackInfo() {
         Glide.with(this)
@@ -256,6 +258,15 @@ class PlayerFragment : Fragment() {
         if (viewModel.isPlayerInPreparedState()) {
             viewModel.startPlayer(false)
             viewModel.pausePlayer()
+        }
+    }
+
+    companion object {
+        const val ARGS_TRACK = "args_track"
+
+        fun createArgs(track: TrackModel): Bundle {
+            val trackAsString = Gson().toJson(track)
+            return bundleOf(ARGS_TRACK to trackAsString)
         }
     }
 

@@ -29,9 +29,19 @@ interface PlaylistDao  {
     ): Int
 
     @Query("UPDATE playlists_table SET tracksIds = :tracksInPlaylist WHERE title = :playlistTitle")
-    suspend fun addTrackIdToPlaylist(
+    suspend fun updateTrackIdsInPlaylist(
         playlistTitle: String,
         tracksInPlaylist: ArrayList<Long>
+    )
+
+    @Query("UPDATE playlists_table SET coverFull = :playlistCoverFull, coverCut = :playlistCoverCut, title = :playlistTitle, description = :playlistDescription, addTime = :playlistAddTime WHERE id = :playlistId")
+    suspend fun updatePlaylist(
+        playlistId: Long,
+        playlistTitle: String,
+        playlistDescription: String?,
+        playlistCoverFull: String?,
+        playlistCoverCut: String?,
+        playlistAddTime: Long
     )
 
 }

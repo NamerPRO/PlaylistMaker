@@ -21,4 +21,16 @@ class TracksInPlaylistDatabaseInteractorImpl(
         return tracksInPlaylistDatabaseRepository.isInTrackInPlaylistStorage(trackId)
     }
 
+    override suspend fun getTrackFromStorage(
+        trackId: Long
+    ): TrackModel {
+        return tracksInPlaylistDatabaseRepository.getTrackFromStorage(trackId)
+    }
+
+    override suspend fun deleteTrackFromStorage(
+        track: TrackModel
+    ) {
+        tracksInPlaylistDatabaseRepository.deleteTrackFromStorage(track)
+    }
+
 }

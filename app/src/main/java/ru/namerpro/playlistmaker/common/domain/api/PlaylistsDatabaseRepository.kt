@@ -21,9 +21,17 @@ interface PlaylistsDatabaseRepository {
         playlistTitle: String
     ): Boolean
 
-    suspend fun addTrackIdToPlaylist(
+    suspend fun updateTracksInPlaylist(
         playlistTitle: String,
         tracksInPlaylistIds: ArrayList<Long>
+    )
+
+    suspend fun updatePlaylist(
+        playlist: PlaylistModel
+    )
+
+    suspend fun deleteTrackIfItDoesNotExistInAnyOfPlaylists(
+        track: TrackModel
     )
 
 }

@@ -16,10 +16,10 @@ class PlaylistViewHolder(
     fun bind(
         playlistItem: PlaylistModel
     ) {
-        if (playlistItem.cover == null) {
+        if (playlistItem.coverCut == null) {
             binding.playlistListItemPlaylistCover.setImageResource(R.drawable.ic_load_failed_stub)
         } else {
-            binding.playlistListItemPlaylistCover.setImageURI(Uri.fromFile(File(playlistItem.cover)))
+            binding.playlistListItemPlaylistCover.setImageURI(Uri.fromFile(File(playlistItem.coverCut)))
         }
 
         binding.playlistListItemPlaylistTitle.text = playlistItem.title

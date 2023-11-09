@@ -1,11 +1,13 @@
 package ru.namerpro.playlistmaker.common.di
 
-import android.content.Intent
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.namerpro.playlistmaker.media.ui.fragments.favourite_tracks.view_model.FavouriteTracksFragmentViewModel
-import ru.namerpro.playlistmaker.media.ui.fragments.playlist.view_model.PlaylistFragmentViewModel
+import ru.namerpro.playlistmaker.media.ui.fragments.playlist.view_model.PlaylistsFragmentViewModel
 import ru.namerpro.playlistmaker.player.ui.view_model.PlayerViewModel
+import ru.namerpro.playlistmaker.playlist_modification.ui.fragments.edit_playlist.view_model.EditPlaylistViewModel
+import ru.namerpro.playlistmaker.playlist.ui.view_model.PlaylistFragmentViewModel
 import ru.namerpro.playlistmaker.root.ui.view_model.RootViewModel
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 import ru.namerpro.playlistmaker.search.ui.view_model.SearchViewModel
@@ -32,7 +34,7 @@ val viewModelModule = module {
     // Playlist view model
 
     viewModel {
-        PlaylistFragmentViewModel(get())
+        PlaylistsFragmentViewModel(get())
     }
 
     // ===
@@ -57,6 +59,22 @@ val viewModelModule = module {
 
     viewModel {
         SettingsViewModel(get(), get())
+    }
+
+    // ===
+
+    // Playlist
+
+    viewModel {
+        PlaylistFragmentViewModel(androidApplication(), get(), get())
+    }
+
+    // ===
+
+    // Edit playlist
+
+    viewModel {
+        EditPlaylistViewModel(get())
     }
 
     // ===
