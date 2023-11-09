@@ -43,7 +43,7 @@ class PlaylistFragment : Fragment() {
 
     private val tracksInPlaylistAdapter = TrackAdapter(ArrayList()) { track, isClickLong ->
         if (isClickLong) {
-            MaterialAlertDialogBuilder(requireContext())
+            MaterialAlertDialogBuilder(requireContext(), R.style.alert_theme)
                 .setTitle(getString(R.string.playlist_delete_playlist_from_list))
                 .setPositiveButton(getString(R.string.dialog_yes_button)) { _, _ ->
                     viewModel.deleteTrackFromPlaylist(viewModel.playlist!!.title, track, viewModel.playlist!!.tracksIds)
@@ -163,7 +163,7 @@ class PlaylistFragment : Fragment() {
 
         binding?.playlistExtraSettingsMenuDeletePlaylistButton?.setOnClickListener {
             extraSettingsMenuBehaviour?.state = BottomSheetBehavior.STATE_HIDDEN
-            MaterialAlertDialogBuilder(requireContext())
+            MaterialAlertDialogBuilder(requireContext(), R.style.alert_theme)
                 .setTitle(getString(R.string.playlist_delete_playlist_alert_title))
                 .setMessage(getString(R.string.playlist_extra_settings_playlist_delete_confirmation, viewModel.playlist?.title))
                 .setPositiveButton(getString(R.string.dialog_yes_button)) { _, _ ->
@@ -185,7 +185,7 @@ class PlaylistFragment : Fragment() {
 
     private fun sharePlaylist() {
         if (viewModel.tracks.isNullOrEmpty()) {
-            MaterialAlertDialogBuilder(requireContext())
+            MaterialAlertDialogBuilder(requireContext(), R.style.alert_theme)
                 .setTitle(R.string.playlist_share_empty_playlist_title)
                 .setMessage(getString(R.string.no_tracks_in_playlist_to_share_button))
                 .setPositiveButton(getString(R.string.dialog_ok_button)) { _, _ -> }

@@ -1,19 +1,15 @@
 package ru.namerpro.playlistmaker.player.ui.view_model
 
-import android.os.Bundle
-import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.namerpro.playlistmaker.common.domain.api.FavouritesDatabaseInteractor
 import ru.namerpro.playlistmaker.common.domain.api.PlaylistsDatabaseInteractor
 import ru.namerpro.playlistmaker.common.domain.api.TracksInPlaylistDatabaseInteractor
-import ru.namerpro.playlistmaker.media.domain.models.PlaylistModel
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerInteractor
 import ru.namerpro.playlistmaker.player.domain.api.MediaPlayerListener
 import ru.namerpro.playlistmaker.player.ui.fragment.state.AddToPlaylistState
@@ -21,7 +17,6 @@ import ru.namerpro.playlistmaker.player.ui.fragment.state.PlayerUpdateState
 import ru.namerpro.playlistmaker.search.domain.model.TrackModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PlayerViewModel(
     val track: TrackModel,

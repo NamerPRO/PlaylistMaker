@@ -48,10 +48,10 @@ class PlaylistsDatabaseInteractorImpl(
         playlistsDatabaseRepository.updatePlaylist(playlist)
     }
 
-    override suspend fun trackExistsInAnyOfPlaylists(
-        trackId: Long
-    ): Boolean {
-        return playlistsDatabaseRepository.trackExistsInAnyOfPlaylists(trackId)
+    override suspend fun deleteTrackIfItDoesNotExistInAnyOfPlaylists(
+        track: TrackModel
+    ) {
+        playlistsDatabaseRepository.deleteTrackIfItDoesNotExistInAnyOfPlaylists(track)
     }
 
 }

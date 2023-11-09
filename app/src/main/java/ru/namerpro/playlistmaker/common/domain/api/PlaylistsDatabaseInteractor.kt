@@ -30,8 +30,8 @@ interface PlaylistsDatabaseInteractor {
         playlist: PlaylistModel
     )
 
-    suspend fun trackExistsInAnyOfPlaylists(
-        trackId: Long
-    ): Boolean
+    suspend fun deleteTrackIfItDoesNotExistInAnyOfPlaylists(
+        track: TrackModel
+    )
 
 }

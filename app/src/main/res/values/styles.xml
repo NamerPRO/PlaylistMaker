@@ -307,5 +307,34 @@
         <item name="cardElevation">0dp</item>
         <item name="cardBackgroundColor">@color/yp_white</item>
     </style>
+    
+    <style name="alert_theme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/white</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/alert_title_appearance</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/alert_body_appearance</item>
+        <item name="buttonBarNegativeButtonStyle">@style/negative_button_appearance</item>
+        <item name="buttonBarPositiveButtonStyle">@style/positive_button_appearance</item>
+        <item name="buttonBarNeutralButtonStyle">@style/neutral_button_appearance</item>
+    </style>
+
+    <style name="alert_body_appearance" parent="@style/MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textColor">@color/yp_black</item>
+    </style>
+
+    <style name="alert_title_appearance" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/yp_black</item>
+    </style>
+
+    <style name="negative_button_appearance" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/yp_blue</item>
+    </style>
+
+    <style name="positive_button_appearance" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/yp_blue</item>
+    </style>
+
+    <style name="neutral_button_appearance" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/yp_blue</item>
+    </style>
 
 </resources>

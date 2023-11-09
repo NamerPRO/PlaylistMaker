@@ -80,9 +80,7 @@ class PlaylistFragmentViewModel(
         trackIds.remove(trackToDelete.trackId)
         playlistDatabaseInteractor.updateTracksInPlaylist(playlistTitle, trackIds)
 
-        if (!playlistDatabaseInteractor.trackExistsInAnyOfPlaylists(trackToDelete.trackId)) {
-            tracksInPlaylistDatabaseInteractor.deleteTrackFromStorage(trackToDelete)
-        }
+        playlistDatabaseInteractor.deleteTrackIfItDoesNotExistInAnyOfPlaylists(trackToDelete)
     }
 
     fun getAmountAndTotalTracksTimeInPlaylistInMinutes(

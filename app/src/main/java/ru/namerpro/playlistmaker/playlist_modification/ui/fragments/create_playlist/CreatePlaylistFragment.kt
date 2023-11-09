@@ -2,7 +2,6 @@ package ru.namerpro.playlistmaker.playlist_modification.ui.fragments.create_play
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -20,8 +19,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.namerpro.playlistmaker.R
 import ru.namerpro.playlistmaker.common.utils.showToast
 import ru.namerpro.playlistmaker.databinding.FragmentNewPlaylistBinding
-import ru.namerpro.playlistmaker.playlist_modification.ui.fragments.create_playlist.state.PlaylistsAddingState
 import ru.namerpro.playlistmaker.media.ui.fragments.playlist.view_model.PlaylistsFragmentViewModel
+import ru.namerpro.playlistmaker.playlist_modification.ui.fragments.create_playlist.state.PlaylistsAddingState
 
 open class CreatePlaylistFragment : Fragment() {
 
@@ -135,7 +134,7 @@ open class CreatePlaylistFragment : Fragment() {
             findNavController().navigateUp()
             return
         }
-        val goBackConfirmationDialog = MaterialAlertDialogBuilder(requireContext())
+        val goBackConfirmationDialog = MaterialAlertDialogBuilder(requireContext(), R.style.alert_theme)
             .setTitle(getString(R.string.dialog_finish_playlist_create_title))
             .setMessage(getString(R.string.dialog_finish_playlist_create_warning))
             .setNeutralButton(getString(R.string.dialog_cancel_button)) { _, _ -> }

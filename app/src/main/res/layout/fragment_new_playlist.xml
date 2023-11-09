@@ -69,6 +69,7 @@
                 android:id="@+id/new_playlist_playlist_title_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textCursorDrawable="@drawable/ic_app_cursor"
                 style="@style/new_playlist_playlist_edittext_appearance"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -87,6 +88,7 @@
                 android:id="@+id/new_playlist_playlist_description_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textCursorDrawable="@drawable/ic_app_cursor"
                 style="@style/new_playlist_playlist_edittext_appearance"/>
 
         </com.google.android.material.textfield.TextInputLayout>
